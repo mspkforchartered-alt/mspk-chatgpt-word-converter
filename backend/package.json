@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "cors": "^2.8.6",
+    "docx": "^9.6.1",
+    "express": "^5.2.1",
+    "mathjax-full": "^3.2.1"
+  }
+}
