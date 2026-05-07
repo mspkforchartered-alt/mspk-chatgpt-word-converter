@@ -97,6 +97,15 @@ button{
     margin-left:10px;
 }
 
+.about-website{
+    background:white;
+    padding:25px;
+    margin-top:40px;
+    border-radius:12px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    line-height:1.8;
+}
+
 .youtube-section{
     background:white;
     margin-top:50px;
@@ -184,29 +193,82 @@ into Professional Word Format
 
 <h2>About the Founder</h2>
 
-<p>
+<p style="line-height:1.8;">
 
 I am <b>Muhammed Sinan P K</b>
-from Kozhikode, Kerala.
+from Calicut, Kerala, India.
 
-This platform helps students and
-professionals convert ChatGPT and
-AI-generated equations/text into
-proper Word format easily.
+I am a faculty for
+<b>
+CA INTERMEDIATE Financial Management
+and Advanced Accounting.
+</b>
+
+I also take classes on YouTube and
+you can find the channel link below.
 
 </p>
 
-<p>
+<p style="line-height:1.8;">
 
-Expert in:
-<b>
-CA INTERMEDIATE Financial Management,
-Advanced Accounting
-</b>
+This website is created to help
+students and professionals who use
+AI tools and ChatGPT convert their
+content into professional Word format easily.
 
 </p>
 
 </div>
+
+</div>
+
+<!-- ABOUT WEBSITE SECTION -->
+
+<div class="about-website">
+
+<h2 style="color:#0a2540;">
+About This Website
+</h2>
+
+<p>
+
+MSPK FOR CHARTERED ChatGPT to Word Converter
+is designed to help students, professionals,
+teachers and content creators convert
+ChatGPT and AI-generated text into
+professional Microsoft Word format easily.
+
+</p>
+
+<p>
+
+This platform supports:
+
+</p>
+
+<ul>
+
+<li>AI generated equations</li>
+
+<li>Financial Management formulas</li>
+
+<li>Professional Word document formatting</li>
+
+<li>Clean text conversion</li>
+
+<li>Quick download system</li>
+
+<li>Preview before download</li>
+
+</ul>
+
+<p>
+
+The goal of this website is to simplify
+academic and professional document preparation
+for students and professionals.
+
+</p>
 
 </div>
 
@@ -304,21 +366,17 @@ function updatePreview() {
     let text =
         document.getElementById("inputText").value;
 
-    // Remove $$ symbols
     text = text.replace(/\$\$/g, "");
 
-    // Cleaner fractions
     text = text.replace(
         /\\frac\{(.*?)\}\{(.*?)\}/g,
         "($1 / $2)"
     );
 
-    // Finance variables
     text = text.replace(/K_p/g, "Kₚ");
     text = text.replace(/K_e/g, "Kₑ");
     text = text.replace(/K_d/g, "K_d");
 
-    // Line breaks
     text = text.replace(/\n/g, "<br>");
 
     document
