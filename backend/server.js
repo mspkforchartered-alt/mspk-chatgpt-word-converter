@@ -10,6 +10,86 @@ app.use(cors());
 app.use(express.json());
 
 /* =========================================
+   🔥 TABLE CONVERTER
+========================================= */
+function convertTables(text) {
+
+  const lines = text.split("\n");
+
+  let result = [];
+  let tableRows = [];
+
+  for (let line of lines) {
+
+    // Detect table rows using multiple spaces
+    if (/\s{2,}/.test(line.trim())) {
+
+      const cols =
+        line.trim().split(/\s{2,}/);
+
+      if (cols.length >= 2) {
+        tableRows.push(cols);
+        continue;
+      }
+    }
+
+    // Flush collected table rows
+    if (tableRows.length > 0) {
+
+      const header = tableRows[0];
+
+      result.push(
+        "| " + header.join(" | ") + " |"
+      );
+
+      result.push(
+        "| " +
+        header.map(() => "---").join(" | ")
+        + " |"
+      );
+
+      for (let i = 1; i < tableRows.length; i++) {
+
+        result.push(
+          "| " + tableRows[i].join(" | ") + " |"
+        );
+      }
+
+      result.push("");
+
+      tableRows = [];
+    }
+
+    result.push(line);
+  }
+
+  // Final pending table
+  if (tableRows.length > 0) {
+
+    const header = tableRows[0];
+
+    result.push(
+      "| " + header.join(" | ") + " |"
+    );
+
+    result.push(
+      "| " +
+      header.map(() => "---").join(" | ")
+      + " |"
+    );
+
+    for (let i = 1; i < tableRows.length; i++) {
+
+      result.push(
+        "| " + tableRows[i].join(" | ") + " |"
+      );
+    }
+  }
+
+  return result.join("\n");
+}
+
+/* =========================================
    🔥 SMART FORMATTER
 ========================================= */
 function formatText(text) {
@@ -110,8 +190,15 @@ app.post("/generate-docx", (req, res) => {
 
   try {
 
-    let formattedText = formatText(text);
+    // 🔥 Convert tables first
+    let formattedText =
+      convertTables(text);
 
+    // 🔥 Equation formatting
+    formattedText =
+      formatText(formattedText);
+
+    // 🔥 Cleanup
     formattedText =
       cleanBrackets(formattedText);
 
@@ -126,7 +213,12 @@ app.post("/generate-docx", (req, res) => {
     exec(command, (err) => {
 
       if (err) {
-        console.error("Pandoc Error:", err);
+
+        console.error(
+          "Pandoc Error:",
+          err
+        );
+
         return res
           .status(500)
           .send("❌ Conversion failed");
@@ -138,8 +230,10 @@ app.post("/generate-docx", (req, res) => {
         () => {
 
           try {
+
             fs.unlinkSync(inputPath);
             fs.unlinkSync(outputPath);
+
           } catch {}
 
         }
@@ -149,7 +243,10 @@ app.post("/generate-docx", (req, res) => {
 
   } catch (error) {
 
-    console.error("Server Error:", error);
+    console.error(
+      "Server Error:",
+      error
+    );
 
     res
       .status(500)
