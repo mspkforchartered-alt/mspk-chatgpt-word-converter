@@ -10,62 +10,6 @@ app.use(cors());
 app.use(express.json());
 
 /* =========================================
-   🔥 SMART TABLE CONVERTER
-========================================= */
-function convertTables(text) {
-
-  const lines = text.split("\n");
-
-  let result = [];
-
-  for (let line of lines) {
-
-    // =====================================
-    // ✅ Already markdown table
-    // Keep it untouched
-    // =====================================
-    if (
-      line.includes("|") &&
-      line.split("|").length >= 3
-    ) {
-
-      // Clean repeated ||
-      line = line.replace(/\|\|+/g, "|");
-
-      // Remove leading/trailing extra |
-      line = line.replace(/^\|+/, "|");
-      line = line.replace(/\|+$/, "|");
-
-      result.push(line);
-
-      continue;
-    }
-
-    // =====================================
-    // ✅ Space separated table rows
-    // =====================================
-    if (/\s{2,}/.test(line.trim())) {
-
-      const cols =
-        line.trim().split(/\s{2,}/);
-
-      if (cols.length >= 2) {
-
-        result.push(
-          "| " + cols.join(" | ") + " |"
-        );
-
-        continue;
-      }
-    }
-
-    result.push(line);
-  }
-
-  return result.join("\n");
-}
-
-/* =========================================
    🔥 SMART FORMATTER
 ========================================= */
 function formatText(text) {
@@ -166,21 +110,8 @@ app.post("/generate-docx", (req, res) => {
 
   try {
 
-    // =====================================
-    // 🔥 TABLE CONVERSION
-    // =====================================
-    let formattedText =
-      convertTables(text);
+    let formattedText = formatText(text);
 
-    // =====================================
-    // 🔥 EQUATION FORMATTING
-    // =====================================
-    formattedText =
-      formatText(formattedText);
-
-    // =====================================
-    // 🔥 CLEANUP
-    // =====================================
     formattedText =
       cleanBrackets(formattedText);
 
@@ -195,12 +126,7 @@ app.post("/generate-docx", (req, res) => {
     exec(command, (err) => {
 
       if (err) {
-
-        console.error(
-          "Pandoc Error:",
-          err
-        );
-
+        console.error("Pandoc Error:", err);
         return res
           .status(500)
           .send("❌ Conversion failed");
@@ -212,10 +138,8 @@ app.post("/generate-docx", (req, res) => {
         () => {
 
           try {
-
             fs.unlinkSync(inputPath);
             fs.unlinkSync(outputPath);
-
           } catch {}
 
         }
@@ -225,10 +149,7 @@ app.post("/generate-docx", (req, res) => {
 
   } catch (error) {
 
-    console.error(
-      "Server Error:",
-      error
-    );
+    console.error("Server Error:", error);
 
     res
       .status(500)
