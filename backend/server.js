@@ -10,80 +10,56 @@ app.use(cors());
 app.use(express.json());
 
 /* =========================================
-   🔥 TABLE CONVERTER
+   🔥 SMART TABLE CONVERTER
 ========================================= */
 function convertTables(text) {
 
   const lines = text.split("\n");
 
   let result = [];
-  let tableRows = [];
 
   for (let line of lines) {
 
-    // Detect table rows using multiple spaces
+    // =====================================
+    // ✅ Already markdown table
+    // Keep it untouched
+    // =====================================
+    if (
+      line.includes("|") &&
+      line.split("|").length >= 3
+    ) {
+
+      // Clean repeated ||
+      line = line.replace(/\|\|+/g, "|");
+
+      // Remove leading/trailing extra |
+      line = line.replace(/^\|+/, "|");
+      line = line.replace(/\|+$/, "|");
+
+      result.push(line);
+
+      continue;
+    }
+
+    // =====================================
+    // ✅ Space separated table rows
+    // =====================================
     if (/\s{2,}/.test(line.trim())) {
 
       const cols =
         line.trim().split(/\s{2,}/);
 
       if (cols.length >= 2) {
-        tableRows.push(cols);
+
+        result.push(
+          "| " + cols.join(" | ") + " |"
+        );
+
         continue;
       }
     }
 
-    // Flush collected table rows
-    if (tableRows.length > 0) {
-
-      const header = tableRows[0];
-
-      result.push(
-        "| " + header.join(" | ") + " |"
-      );
-
-      result.push(
-        "| " +
-        header.map(() => "---").join(" | ")
-        + " |"
-      );
-
-      for (let i = 1; i < tableRows.length; i++) {
-
-        result.push(
-          "| " + tableRows[i].join(" | ") + " |"
-        );
-      }
-
-      result.push("");
-
-      tableRows = [];
-    }
-
     result.push(line);
-  }
-
-  // Final pending table
-  if (tableRows.length > 0) {
-
-    const header = tableRows[0];
-
-    result.push(
-      "| " + header.join(" | ") + " |"
-    );
-
-    result.push(
-      "| " +
-      header.map(() => "---").join(" | ")
-      + " |"
-    );
-
-    for (let i = 1; i < tableRows.length; i++) {
-
-      result.push(
-        "| " + tableRows[i].join(" | ") + " |"
-      );
-    }
   }
 
   return result.join("\n");
@@ -190,15 +166,21 @@ app.post("/generate-docx", (req, res) => {
 
   try {
 
-    // 🔥 Convert tables first
+    // =====================================
+    // 🔥 TABLE CONVERSION
+    // =====================================
     let formattedText =
       convertTables(text);
 
-    // 🔥 Equation formatting
+    // =====================================
+    // 🔥 EQUATION FORMATTING
+    // =====================================
     formattedText =
       formatText(formattedText);
 
-    // 🔥 Cleanup
+    // =====================================
+    // 🔥 CLEANUP
+    // =====================================
     formattedText =
       cleanBrackets(formattedText);
 
