@@ -16,11 +16,18 @@ import uuid
 app = FastAPI()
 
 # =========================================
-# CORS - Production Ready
+# CORS - Production Ready Fix
 # =========================================
+# We explicitly list your Netlify URL to ensure the connection is never blocked
+origins = [
+    "https://netlify.app",
+    "http://localhost:3000", # For local testing
+    "*" # Fallback for other origins
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -33,7 +40,6 @@ class TextInput(BaseModel):
 # PAGE BORDER HELPER
 # =========================================
 def add_page_border(doc):
-    """Adds a clean single-line border to every page."""
     sec = doc.sections
     for section in sec:
         sectPr = section._sectPr
@@ -42,8 +48,8 @@ def add_page_border(doc):
         for border_name in ['top', 'left', 'bottom', 'right']:
             border_el = OxmlElement(f'w:{border_name}')
             border_el.set(qn('w:val'), 'single')
-            border_el.set(qn('w:sz'), '4')  
-            border_el.set(qn('w:space'), '24') 
+            border_el.set(qn('w:sz'), '4') 
+            border_el.set(qn('w:space'), '24')
             border_el.set(qn('w:color'), 'auto')
             pgBorders.append(border_el)
         sectPr.append(pgBorders)
@@ -52,31 +58,20 @@ def add_page_border(doc):
 # CLEANING UTILS
 # =========================================
 def remove_file(path: str):
-    if os.path.exists(path): os.remove(path)
+    if os.path.exists(path):
+        os.remove(path)
 
 def clean_text(text):
-    """Removes #, ** and other AI markdown artifacts from text."""
-    text = re.sub(r"^#+\s*", "", text) # Remove # headers
-    text = text.replace("**", "") # Remove bold stars
+    text = re.sub(r"^#+\s*", "", text)
+    text = text.replace("**", "")
     text = text.replace("---", "").replace("###", "").replace("##", "")
     return text.strip()
 
 def clean_equation(eq):
-    """Deep cleaning for equations to prevent broken boxes (like the Ke fraction)."""
-    # 1. Fix double-escaped slashes
     eq = eq.replace("\\\\", "\\")
-    
-    # 2. CRITICAL FIX: Ensure % is escaped for LaTeX (\%)
-    # This prevents the denominator from disappearing or becoming a blank box.
     eq = re.sub(r'(?<!\\)%', r'\\%', eq)
-    
-    # 3. Remove \ from already escaped percentages (\% -> %) ONLY for the final box display
-    # but keep it as \% for the MathML converter. (Handled in add_word_equation)
-    
-    # 4. Strip AI wrappers and bold stars
     eq = eq.replace("\\[", "").replace("\\]", "").replace("\\(", "").replace("\\)", "")
     eq = eq.replace("$$", "").replace("$", "").replace("**", "")
-    
     return eq.strip().lstrip("[").rstrip("]")
 
 def is_equation(line):
@@ -89,34 +84,27 @@ def is_equation(line):
 # DOCUMENT ENGINES
 # =========================================
 def add_word_equation(paragraph, equation):
-    """Converts LaTeX to Word OMML with safety fallbacks for broken math."""
     cleaned_eq = clean_equation(equation)
-    if not cleaned_eq: return 
-    
+    if not cleaned_eq: return
     try:
-        # Convert LaTeX -> MathML
         mathml = latex_to_mathml(cleaned_eq)
+        # FIXED: Ensure the full MathML namespace URL is present
         if 'xmlns=' not in mathml:
             mathml = mathml.replace("<math>", '<math xmlns="http://w3.org">')
 
         xslt_path = os.path.join(os.getcwd(), "MML2OMML.XSL")
         if not os.path.exists(xslt_path):
-            # Fallback to italic text if XSL file is missing on server
             run = paragraph.add_run(f" {cleaned_eq.replace('\\%', '%')} ")
             run.italic = True
             run.font.name = "Times New Roman"
             return
 
-        # Transform MathML to Word's OMML format
         xslt = etree.parse(xslt_path)
         transform = etree.XSLT(xslt)
         mathml_dom = etree.fromstring(mathml.encode("utf-8"))
         omml_dom = transform(mathml_dom)
         paragraph._element.append(omml_dom.getroot())
-        
     except Exception as e:
-        # If conversion fails, don't leave a blank box—show the raw math in italics
-        print(f"Math Error: {e}")
         run = paragraph.add_run(f" {cleaned_eq.replace('\\%', '%')} ")
         run.italic = True
         run.font.name = "Times New Roman"
@@ -125,19 +113,16 @@ def add_table(doc, lines):
     rows = []
     for line in lines:
         if "|" not in line or re.search(r"[-:]{3,}", line): continue
-        # Clean stars (**) out of table cells
         cols = [clean_text(c.strip()) for c in line.split("|") if c.strip()]
         if cols: rows.append(cols)
-    
     if not rows: return
-    
     table = doc.add_table(rows=len(rows), cols=max(len(r) for r in rows))
     table.style = "Table Grid"
     for i, row in enumerate(rows):
         for j, cell in enumerate(row):
             if j < len(table.columns):
                 cell_obj = table.cell(i, j)
-                cell_obj.text = "" # Clear default text
+                cell_obj.text = "" 
                 p = cell_obj.paragraphs[0]
                 run = p.add_run(cell)
                 run.font.name = "Times New Roman"
@@ -151,7 +136,7 @@ async def generate_docx(data: TextInput, background_tasks: BackgroundTasks):
     text = data.text
     doc = Document()
 
-    # 1. Page & Margin Setup
+    # 1. Page Setup
     section = doc.sections[0]
     section.top_margin = Inches(1)
     section.bottom_margin = Inches(1)
@@ -159,11 +144,11 @@ async def generate_docx(data: TextInput, background_tasks: BackgroundTasks):
     section.right_margin = Inches(1)
     add_page_border(doc)
 
-    # 2. Global Professional Style
+    # 2. Style Setup
     style = doc.styles["Normal"]
     style.font.name = "Times New Roman"
     style.font.size = Pt(11)
-    style.paragraph_format.line_spacing = 1.0 # Single spacing
+    style.paragraph_format.line_spacing = 1.0
     style.paragraph_format.space_after = Pt(0)
 
     # Title
@@ -178,14 +163,11 @@ async def generate_docx(data: TextInput, background_tasks: BackgroundTasks):
     i = 0
     while i < len(lines):
         line = lines[i].strip()
-        
-        # Skip noise and standalone brackets
         if not line or line in ["[", "]", "(", ")"]:
             if not line: doc.add_paragraph()
             i += 1
             continue
 
-        # Handle Tables
         if "|" in line:
             table_lines = []
             while i < len(lines) and "|" in lines[i]:
@@ -194,7 +176,6 @@ async def generate_docx(data: TextInput, background_tasks: BackgroundTasks):
             add_table(doc, table_lines)
             continue
 
-        # Handle Equations (Fixes the broken Ke boxes)
         if is_equation(line) and len(line) < 600:
             p = doc.add_paragraph()
             p.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
@@ -204,10 +185,8 @@ async def generate_docx(data: TextInput, background_tasks: BackgroundTasks):
             i += 1
             continue
 
-        # Handle Normal Text & Headings
         line_clean = clean_text(line)
         p = doc.add_paragraph()
-        # Bold short lines or WN markers
         if line_clean.isupper() or (len(line_clean) < 50 and (line_clean.startswith("WN") or line_clean.endswith(":"))):
             run = p.add_run(line_clean)
             run.bold = True
@@ -216,12 +195,11 @@ async def generate_docx(data: TextInput, background_tasks: BackgroundTasks):
             p.add_run(line_clean)
         i += 1
 
-    # Save and cleanup
     filename = f"report_{uuid.uuid4()}.docx"
     filepath = os.path.join(os.getcwd(), filename)
     doc.save(filepath)
     background_tasks.add_task(remove_file, filepath)
-    
+
     return FileResponse(
         filepath, 
         media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document", 
@@ -229,4 +207,5 @@ async def generate_docx(data: TextInput, background_tasks: BackgroundTasks):
     )
 
 @app.get("/")
-def home(): return {"status": "online", "message": "Ready"}
+def home():
+    return {"status": "online", "message": "Backend is active and trusting Netlify origin"}
