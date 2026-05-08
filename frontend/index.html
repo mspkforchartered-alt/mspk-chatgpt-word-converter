@@ -1,399 +1,569 @@
+# Professional MSPK FOR CHARTERED Frontend Redesign
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
 
-    <meta
-        name="description"
-        content="Convert ChatGPT and AI generated equations and text into professional Word format using MSPK FOR CHARTERED."
-    >
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Convert ChatGPT and AI generated equations and text into professional Word documents.">
 
-    <meta
-        name="keywords"
-        content="ChatGPT to Word, AI equation converter, Word equation generator, MSPK FOR CHARTERED, CA Inter FM"
-    >
+<title>MSPK FOR CHARTERED</title>
 
-    <meta
-        name="author"
-        content="Muhammed Sinan P K"
-    >
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<style>
 
-    <title>MSPK FOR CHARTERED</title>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-    <style>
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f4f7fb;
+    color:#1a1a1a;
+}
 
-        body{
-            font-family:Arial;
-            margin:0;
-            background:#f4f6f9;
-        }
+html{
+    scroll-behavior:smooth;
+}
 
-        header{
-            background:#0a2540;
-            color:white;
-            padding:20px;
-            text-align:center;
-        }
+/* =========================================
+   HEADER
+========================================= */
 
-        .container{
-            max-width:1100px;
-            margin:auto;
-            padding:20px;
-        }
+header{
+    background:linear-gradient(135deg,#071c35,#0a2540,#12355d);
+    color:white;
+    padding:70px 20px;
+    text-align:center;
+}
 
-        .hero{
-            display:flex;
-            gap:30px;
-            align-items:center;
-            margin-top:20px;
-            flex-wrap:wrap;
-        }
+header h1{
+    font-size:52px;
+    font-weight:700;
+    margin-bottom:15px;
+}
 
-        .hero img{
-            width:230px;
-            border-radius:12px;
-            box-shadow:0 4px 10px rgba(0,0,0,0.2);
-        }
+header p{
+    font-size:20px;
+    max-width:850px;
+    margin:auto;
+    line-height:1.8;
+    opacity:0.95;
+}
 
-        textarea{
-            width:100%;
-            height:250px;
-            padding:15px;
-            margin-top:15px;
-            font-size:16px;
-            border-radius:8px;
-            border:1px solid #ccc;
-            resize:vertical;
-            box-sizing:border-box;
-        }
+.hero-buttons{
+    margin-top:35px;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
 
-        .preview{
-            background:white;
-            border:1px solid #ccc;
-            padding:20px;
-            min-height:200px;
-            margin-top:20px;
-            white-space:pre-wrap;
-            line-height:1.7;
-            border-radius:8px;
-            overflow:auto;
-        }
+.hero-buttons a{
+    text-decoration:none;
+    padding:14px 28px;
+    border-radius:10px;
+    font-weight:600;
+    transition:0.3s;
+}
 
-        button{
-            padding:12px 22px;
-            border:none;
-            color:white;
-            cursor:pointer;
-            font-size:16px;
-            margin-top:20px;
-            border-radius:8px;
-            font-weight:bold;
-        }
+.primary-btn{
+    background:#ffb703;
+    color:#071c35;
+}
 
-        .download-btn{
-            background:#0a2540;
-        }
+.primary-btn:hover{
+    transform:translateY(-3px);
+}
 
-        .pdf-btn{
-            background:#7f8c8d;
-            cursor:not-allowed;
-            opacity:0.7;
-            margin-left:10px;
-        }
+.secondary-btn{
+    border:2px solid white;
+    color:white;
+}
 
-        .clear-btn{
-            background:red;
-            margin-left:10px;
-        }
+.secondary-btn:hover{
+    background:white;
+    color:#071c35;
+}
 
-        /* =====================================
-           LOADER
-        ===================================== */
+/* =========================================
+   CONTAINER
+========================================= */
 
-        #loader{
-            display:none;
-            position:fixed;
-            top:0;
-            left:0;
-            width:100%;
-            height:100%;
-            background:rgba(10,37,64,0.9);
-            z-index:1000;
-            flex-direction:column;
-            justify-content:center;
-            align-items:center;
-            color:white;
-            text-align:center;
-        }
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:50px 20px;
+}
 
-        .spinner{
-            width:50px;
-            height:50px;
-            border:5px solid #f3f3f3;
-            border-top:5px solid #3498db;
-            border-radius:50%;
-            animation:spin 1s linear infinite;
-            margin-bottom:15px;
-        }
+/* =========================================
+   CARDS
+========================================= */
 
-        @keyframes spin{
-            0%{
-                transform:rotate(0deg);
-            }
-            100%{
-                transform:rotate(360deg);
-            }
-        }
+.card{
+    background:white;
+    border-radius:20px;
+    padding:35px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+    margin-bottom:40px;
+}
 
-        /* =====================================
-           ABOUT WEBSITE
-        ===================================== */
+/* =========================================
+   ABOUT SECTION
+========================================= */
 
-        .about-website{
-            background:white;
-            padding:25px;
-            margin-top:40px;
-            border-radius:12px;
-            box-shadow:0 4px 10px rgba(0,0,0,0.1);
-            line-height:1.8;
-        }
+.about-section{
+    display:flex;
+    gap:40px;
+    align-items:center;
+    flex-wrap:wrap;
+}
 
-        /* =====================================
-           YOUTUBE SECTION
-        ===================================== */
+.about-section img{
+    width:260px;
+    border-radius:18px;
+    object-fit:cover;
+    box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
 
-        .youtube-section{
-            background:white;
-            margin-top:50px;
-            padding:30px;
-            border-radius:12px;
-            box-shadow:0 4px 10px rgba(0,0,0,0.1);
-        }
+.about-content{
+    flex:1;
+}
 
-        .youtube-section h2{
-            text-align:center;
-            color:#0a2540;
-        }
+.about-content h2{
+    color:#0a2540;
+    margin-bottom:18px;
+    font-size:34px;
+}
 
-        .youtube-container{
-            display:flex;
-            justify-content:center;
-            margin-top:25px;
-        }
+.about-content p{
+    line-height:1.9;
+    font-size:16px;
+    margin-bottom:15px;
+}
 
-        .youtube-btn{
-            background:red;
-            color:white;
-            padding:14px 28px;
-            text-decoration:none;
-            border-radius:8px;
-            font-size:18px;
-            font-weight:bold;
-            display:inline-block;
-        }
+.highlight{
+    color:#0a2540;
+    font-weight:600;
+}
 
-        footer{
-            background:#0a2540;
-            color:white;
-            text-align:center;
-            padding:15px;
-            margin-top:40px;
-        }
+/* =========================================
+   FEATURES
+========================================= */
 
-        /* =====================================
-           MOBILE
-        ===================================== */
+.features-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:25px;
+}
 
-        @media(max-width:768px){
+.feature-box{
+    background:#f8fbff;
+    border-radius:18px;
+    padding:25px;
+    transition:0.3s;
+    border:1px solid #e3edf7;
+}
 
-            .hero{
-                flex-direction:column;
-                text-align:center;
-            }
+.feature-box:hover{
+    transform:translateY(-5px);
+}
 
-            .pdf-btn,
-            .clear-btn{
-                margin-left:0;
-                width:100%;
-            }
+.feature-box h3{
+    margin-bottom:12px;
+    color:#0a2540;
+}
 
-            .download-btn{
-                width:100%;
-            }
-        }
+.feature-box p{
+    line-height:1.7;
+    color:#555;
+}
 
-    </style>
+/* =========================================
+   CONVERTER
+========================================= */
+
+.converter-section h2{
+    font-size:36px;
+    color:#0a2540;
+    margin-bottom:10px;
+}
+
+.converter-section p{
+    color:#666;
+    margin-bottom:25px;
+}
+
+textarea{
+    width:100%;
+    min-height:320px;
+    border-radius:18px;
+    border:1px solid #d7e3f0;
+    padding:22px;
+    font-size:16px;
+    resize:vertical;
+    outline:none;
+    font-family:'Poppins',sans-serif;
+    transition:0.3s;
+}
+
+textarea:focus{
+    border-color:#0a2540;
+    box-shadow:0 0 0 5px rgba(10,37,64,0.1);
+}
+
+.preview-box{
+    margin-top:30px;
+    background:#f9fbfd;
+    border:1px solid #dce7f2;
+    border-radius:18px;
+    padding:25px;
+    min-height:220px;
+    line-height:1.9;
+    overflow:auto;
+}
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.buttons{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+    margin-top:25px;
+}
+
+button{
+    border:none;
+    padding:15px 28px;
+    border-radius:12px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.download-btn{
+    background:#0a2540;
+    color:white;
+}
+
+.download-btn:hover{
+    background:#12355d;
+}
+
+.clear-btn{
+    background:#e63946;
+    color:white;
+}
+
+.clear-btn:hover{
+    background:#d62839;
+}
+
+.pdf-btn{
+    background:#adb5bd;
+    color:white;
+}
+
+/* =========================================
+   YOUTUBE
+========================================= */
+
+.youtube-section h2{
+    text-align:center;
+    color:#0a2540;
+    font-size:36px;
+    margin-bottom:15px;
+}
+
+.youtube-section p{
+    text-align:center;
+    color:#555;
+    margin-bottom:25px;
+}
+
+.video-wrapper{
+    overflow:hidden;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+.video-wrapper iframe{
+    width:100%;
+    height:500px;
+    border:none;
+}
+
+.youtube-btn{
+    display:inline-block;
+    margin-top:25px;
+    background:red;
+    color:white;
+    text-decoration:none;
+    padding:15px 28px;
+    border-radius:12px;
+    font-weight:600;
+}
+
+.youtube-center{
+    text-align:center;
+}
+
+/* =========================================
+   LOADER
+========================================= */
+
+#loader{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(7,28,53,0.92);
+    z-index:9999;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    color:white;
+}
+
+.spinner{
+    width:70px;
+    height:70px;
+    border:7px solid rgba(255,255,255,0.2);
+    border-top:7px solid #ffb703;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+    margin-bottom:20px;
+}
+
+@keyframes spin{
+    100%{
+        transform:rotate(360deg);
+    }
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer{
+    background:#071c35;
+    color:white;
+    text-align:center;
+    padding:30px 20px;
+    margin-top:50px;
+}
+
+footer p{
+    opacity:0.85;
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:768px){
+
+    header h1{
+        font-size:36px;
+    }
+
+    header p{
+        font-size:17px;
+    }
+
+    .about-section{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .about-section img{
+        width:220px;
+    }
+
+    .video-wrapper iframe{
+        height:250px;
+    }
+
+    .buttons button{
+        width:100%;
+    }
+
+}
+
+</style>
 
 </head>
 
 <body>
 
+<!-- =========================================
+     LOADER
+========================================= -->
+
+<div id="loader">
+
+    <div class="spinner"></div>
+
+    <h2>Generating Professional Document...</h2>
+
+    <p>Please wait while your file is being prepared.</p>
+
+</div>
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
+<header>
+
+    <h1>MSPK FOR CHARTERED</h1>
+
+    <p>
+        Convert ChatGPT & AI Generated Equations,
+        Financial Calculations and Tables into
+        Professional Microsoft Word Documents.
+    </p>
+
+    <div class="hero-buttons">
+
+        <a href="#converter" class="primary-btn">
+            Start Converting
+        </a>
+
+        <a
+            href="https://www.youtube.com/@MSPKFORCHARTERED"
+            target="_blank"
+            class="secondary-btn"
+        >
+            Visit YouTube Channel
+        </a>
+
+    </div>
+
+</header>
+
+<div class="container">
+
     <!-- =====================================
-         LOADING SCREEN
+         ABOUT FOUNDER
     ====================================== -->
 
-    <div id="loader">
+    <div class="card about-section">
 
-        <div class="spinner"></div>
+        <img src="sinan.jpg" alt="Muhammed Sinan">
 
-        <p style="font-size:18px;">
-            Converting Content...
-            <br>
-            Please wait while we generate your professional file.
-        </p>
+        <div class="about-content">
+
+            <h2>About the Founder</h2>
+
+            <p>
+                I am
+                <span class="highlight">
+                    Muhammed Sinan P K
+                </span>
+                from Calicut, Kerala, India.
+            </p>
+
+            <p>
+                I am a faculty for
+                <span class="highlight">
+                    CA INTERMEDIATE Financial Management
+                    and Advanced Accounting.
+                </span>
+            </p>
+
+            <p>
+                This platform helps students and professionals
+                convert AI-generated equations, formulas,
+                financial calculations and tables into
+                professional Microsoft Word documents.
+            </p>
+
+        </div>
 
     </div>
 
     <!-- =====================================
-         HEADER
+         FEATURES
     ====================================== -->
 
-    <header>
+    <div class="card">
 
-        <h1>MSPK FOR CHARTERED</h1>
+        <h2 style="margin-bottom:30px;color:#0a2540;font-size:36px;">
+            Features
+        </h2>
 
-        <p>
-            Convert ChatGPT & AI Generated Text
-            into Professional Word Format
-        </p>
+        <div class="features-grid">
 
-    </header>
-
-    <!-- =====================================
-         MAIN CONTAINER
-    ====================================== -->
-
-    <div class="container">
-
-        <!-- =================================
-             FOUNDER SECTION
-        ================================== -->
-
-        <div class="hero">
-
-            <img
-                src="sinan.jpg"
-                alt="Muhammed Sinan"
-            >
-
-            <div>
-
-                <h2>About the Founder</h2>
-
-                <p style="line-height:1.8;">
-
-                    I am
-                    <b>Muhammed Sinan P K</b>
-                    from Calicut, Kerala, India.
-
-                    I am a faculty for
-                    <b>
-                        CA INTERMEDIATE Financial Management
-                        and Advanced Accounting.
-                    </b>
-
-                    I also take classes on YouTube.
-
+            <div class="feature-box">
+                <h3>AI Equation Support</h3>
+                <p>
+                    Converts ChatGPT and AI generated equations
+                    into professional Word format.
                 </p>
+            </div>
 
-                <p style="line-height:1.8;">
-
-                    This tool helps students convert
-                    AI-generated financial formulas
-                    and equations into clean Word documents.
-
+            <div class="feature-box">
+                <h3>Professional Tables</h3>
+                <p>
+                    Automatically converts markdown tables
+                    into clean Word tables.
                 </p>
+            </div>
 
+            <div class="feature-box">
+                <h3>Real Word Formatting</h3>
+                <p>
+                    Generates professional Times New Roman
+                    formatted documents.
+                </p>
+            </div>
+
+            <div class="feature-box">
+                <h3>Financial Management Focus</h3>
+                <p>
+                    Optimized for CA Inter Financial
+                    Management calculations and reports.
+                </p>
             </div>
 
         </div>
 
-        <!-- =================================
-             ABOUT WEBSITE
-        ================================== -->
+    </div>
 
-        <div class="about-website">
+    <!-- =====================================
+         CONVERTER
+    ====================================== -->
 
-            <h2 style="color:#0a2540;">
-                About This Website
-            </h2>
+    <div class="card converter-section" id="converter">
 
-            <p>
+        <h2>AI to Word Converter</h2>
 
-                Convert messy AI text into clean,
-                structured professional documents.
-
-                Optimized especially for Financial
-                Management formulas and equations.
-
-            </p>
-
-            <ul>
-
-                <li>
-                    AI generated equations
-                    (LaTeX supported)
-                </li>
-
-                <li>
-                    Professional Word formatting
-                </li>
-
-                <li>
-                    Clean table conversion
-                </li>
-
-                <li>
-                    Automatic page borders
-                </li>
-
-                <li>
-                    Times New Roman formatting
-                </li>
-
-            </ul>
-
-        </div>
-
-        <!-- =================================
-             TEXT AREA
-        ================================== -->
-
-        <h2>Convert Your Text</h2>
+        <p>
+            Paste your ChatGPT or AI generated content below.
+        </p>
 
         <textarea
             id="inputText"
-            placeholder="Paste your ChatGPT text here..."
+            placeholder="Paste your ChatGPT content here..."
             oninput="updatePreview()"
         ></textarea>
 
-        <!-- =================================
-             PREVIEW
-        ================================== -->
+        <div class="preview-box" id="preview"></div>
 
-        <h2>Preview</h2>
-
-        <div
-            class="preview"
-            id="preview"
-        ></div>
-
-        <!-- =================================
-             BUTTONS
-        ================================== -->
-
-        <div
-            style="
-                display:flex;
-                flex-wrap:wrap;
-                gap:10px;
-            "
-        >
+        <div class="buttons">
 
             <button
                 class="download-btn"
@@ -404,9 +574,9 @@
 
             <button
                 class="pdf-btn"
-                onclick="alert('PDF Conversion is coming soon!')"
+                onclick="alert('PDF Conversion Coming Soon')"
             >
-                Download PDF (Coming Soon)
+                PDF Coming Soon
             </button>
 
             <button
@@ -418,168 +588,161 @@
 
         </div>
 
-        <!-- =================================
-             YOUTUBE SECTION
-        ================================== -->
+    </div>
 
-        <div class="youtube-section">
+    <!-- =====================================
+         YOUTUBE SECTION
+    ====================================== -->
 
-            <h2>
-                📺 MSPK FOR CHARTERED YouTube Channel
-            </h2>
+    <div class="card youtube-section">
 
-            <div class="youtube-container">
+        <h2>MSPK FOR CHARTERED YouTube Channel</h2>
 
-                <iframe
-                    width="900"
-                    height="500"
-                    src="https://www.youtube.com/embed?listType=user_uploads&list=MSPKFORCHARTERED"
-                    title="YouTube Channel"
-                    frameborder="0"
-                    allowfullscreen
-                    style="
-                        border-radius:12px;
-                        max-width:100%;
-                    "
-                ></iframe>
+        <p>
+            Watch CA Intermediate Financial Management
+            and Advanced Accounting classes.
+        </p>
 
-            </div>
+        <div class="video-wrapper">
 
-            <div
-                style="
-                    text-align:center;
-                    margin-top:25px;
-                "
+            <iframe
+                src="https://www.youtube.com/embed?listType=user_uploads&list=MSPKFORCHARTERED"
+                allowfullscreen
+            ></iframe>
+
+        </div>
+
+        <div class="youtube-center">
+
+            <a
+                href="https://www.youtube.com/@MSPKFORCHARTERED"
+                target="_blank"
+                class="youtube-btn"
             >
-
-                <a
-                    href="https://www.youtube.com/@MSPKFORCHARTERED"
-                    target="_blank"
-                    class="youtube-btn"
-                >
-                    Open YouTube Channel
-                </a>
-
-            </div>
+                Open YouTube Channel
+            </a>
 
         </div>
 
     </div>
 
-    <!-- =====================================
-         FOOTER
-    ====================================== -->
+</div>
 
-    <footer>
+<!-- =========================================
+     FOOTER
+========================================= -->
 
-        © 2026 MSPK FOR CHARTERED
+<footer>
 
-    </footer>
+    <h2>MSPK FOR CHARTERED</h2>
 
-    <!-- =====================================
-         SCRIPT
-    ====================================== -->
+    <p>
+        © 2026 All Rights Reserved
+    </p>
 
-    <script>
+</footer>
 
-        function updatePreview(){
+<!-- =========================================
+     SCRIPT
+========================================= -->
 
-            let text =
-                document.getElementById("inputText").value;
+<script>
 
-            text =
-                text.replace(/\n/g,"<br>");
+function updatePreview(){
 
-            document
-                .getElementById("preview")
-                .innerHTML = text;
-        }
+    let text =
+        document.getElementById("inputText").value;
 
-        function clearText(){
+    text = text.replace(/\n/g,"<br>");
 
-            document
-                .getElementById("inputText")
-                .value = "";
+    document
+        .getElementById("preview")
+        .innerHTML = text;
+}
 
-            document
-                .getElementById("preview")
-                .innerHTML = "";
-        }
+function clearText(){
 
-        async function generateDoc(){
+    document
+        .getElementById("inputText")
+        .value = "";
 
-            const text =
-                document.getElementById("inputText").value;
+    document
+        .getElementById("preview")
+        .innerHTML = "";
+}
 
-            if(!text.trim()){
+async function generateDoc(){
 
-                alert("Please enter text first!");
+    const text =
+        document.getElementById("inputText").value;
 
-                return;
-            }
+    if(!text.trim()){
 
-            const loader =
-                document.getElementById("loader");
+        alert("Please enter text first!");
 
-            loader.style.display = "flex";
+        return;
+    }
 
-            try{
+    const loader =
+        document.getElementById("loader");
 
-                const response =
-                    await fetch(
-                        "https://mspk-chatgpt-word-converter-1.onrender.com/generate-docx",
-                        {
-                            method:"POST",
+    loader.style.display = "flex";
 
-                            headers:{
-                                "Content-Type":"application/json"
-                            },
+    try{
 
-                            body:JSON.stringify({ text })
-                        }
-                    );
+        const response =
+            await fetch(
+                "https://mspk-chatgpt-word-converter-1.onrender.com/generate-docx",
+                {
+                    method:"POST",
 
-                if(!response.ok){
+                    headers:{
+                        "Content-Type":"application/json"
+                    },
 
-                    throw new Error("Server error");
+                    body:JSON.stringify({ text })
                 }
+            );
 
-                const blob =
-                    await response.blob();
+        if(!response.ok){
 
-                const url =
-                    window.URL.createObjectURL(blob);
-
-                const a =
-                    document.createElement("a");
-
-                a.href = url;
-
-                a.download = "MSPK_Report.docx";
-
-                document.body.appendChild(a);
-
-                a.click();
-
-                window.URL.revokeObjectURL(url);
-
-                a.remove();
-
-            }catch(error){
-
-                console.error(error);
-
-                alert(
-                    "Error connecting to server."
-                );
-
-            }finally{
-
-                loader.style.display = "none";
-            }
+            throw new Error("Server Error");
         }
 
-    </script>
+        const blob =
+            await response.blob();
+
+        const url =
+            window.URL.createObjectURL(blob);
+
+        const a =
+            document.createElement("a");
+
+        a.href = url;
+
+        a.download = "MSPK_Report.docx";
+
+        document.body.appendChild(a);
+
+        a.click();
+
+        window.URL.revokeObjectURL(url);
+
+        a.remove();
+
+    }catch(error){
+
+        console.error(error);
+
+        alert("Error connecting to server.");
+
+    }finally{
+
+        loader.style.display = "none";
+    }
+}
+
+</script>
 
 </body>
 </html>
