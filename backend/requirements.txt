@@ -1,5 +1,6 @@
 fastapi
 uvicorn
 python-docx
-python-multipart
+lxml
+latex2mathml
 pydantic
