@@ -2,15 +2,36 @@
 <html lang="en">
 <head>
 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M7E1DCM54D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-M7E1DCM54D');
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <meta
     name="description"
-    content="Convert ChatGPT and AI generated equations and text into professional Word documents."
+    content="Convert ChatGPT and AI generated equations, tables, and text into professional Microsoft Word DOCX documents."
 >
 
-<title>MSPK FOR CHARTERED</title>
+<meta
+    name="keywords"
+    content="ChatGPT to Word, AI to DOCX, Equation Converter, Financial Equation Converter, AI Notes to Word, ChatGPT Equation Converter"
+>
+
+<title>MSPK ChatGPT to Word</title>
+
+<link
+    rel="icon"
+    type="image/png"
+    href="favicon.png"
+>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
@@ -106,7 +127,7 @@ header p{
 .container{
     max-width:1200px;
     margin:auto;
-    padding:50px 20px;
+    padding:50px 20px 0;
 }
 
 /* =========================================
@@ -136,18 +157,24 @@ header p{
     margin-bottom:25px;
 }
 
-textarea{
-    width:100%;
-    min-height:350px;
-    border-radius:18px;
-    border:1px solid #d7e3f0;
-    padding:22px;
-    font-size:16px;
-    resize:vertical;
-    outline:none;
-    font-family:'Poppins',sans-serif;
-    transition:0.3s;
+textarea {
+    width: 100%;
+    min-height: 350px;
+    border-radius: 18px;
+    border: 1px solid #d7e3f0;
+    padding: 22px;
+    font-size: 15px; 
+    resize: vertical;
+    outline: none;
+    transition: 0.3s;
+
+    /* --- ADD THESE 4 LINES TO FIX THE MATH ALIGNMENT --- */
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace !important;
+    white-space: pre !important;
+    line-height: 1.2 !important;
+    overflow-x: auto;
 }
+
 
 textarea:focus{
     border-color:#0a2540;
@@ -180,8 +207,14 @@ button{
     color:white;
 }
 
-.download-btn:hover{
+.download-btn:hover:not(:disabled){
     background:#12355d;
+}
+
+.download-btn:disabled{
+    background:#ccc;
+    cursor:not-allowed;
+    opacity:0.6;
 }
 
 .clear-btn{
@@ -196,6 +229,47 @@ button{
 .pdf-btn{
     background:#adb5bd;
     color:white;
+}
+
+/* =========================================
+   TOAST NOTIFICATION
+========================================= */
+
+.toast{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#333;
+    color:white;
+    padding:16px 24px;
+    border-radius:10px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.2);
+    display:none;
+    z-index:10000;
+    animation:slideIn 0.3s ease-in-out;
+}
+
+.toast.success{
+    background:#28a745;
+}
+
+.toast.error{
+    background:#dc3545;
+}
+
+.toast.info{
+    background:#17a2b8;
+}
+
+@keyframes slideIn{
+    from{
+        transform:translateX(400px);
+        opacity:0;
+    }
+    to{
+        transform:translateX(0);
+        opacity:1;
+    }
 }
 
 /* =========================================
@@ -274,6 +348,7 @@ button{
 ========================================= */
 
 footer{
+    width:100%;
     background:#071c35;
     color:white;
     text-align:center;
@@ -286,14 +361,43 @@ footer p{
 }
 
 .footer-links{
-    margin-top:15px;
+
+    margin-top:25px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:18px;
+
 }
 
 .footer-links a{
+
     color:white;
+
     text-decoration:none;
-    margin:0 12px;
-    font-size:15px;
+
+    font-size:16px;
+
+    padding:10px 16px;
+
+    border-radius:10px;
+
+    transition:0.3s;
+
+}
+
+.footer-links a:hover{
+
+    background:rgba(255,255,255,0.12);
+
+    text-decoration:none;
+
 }
 
 .footer-links a:hover{
@@ -319,20 +423,236 @@ footer p{
     color:white;
 }
 
-.spinner{
-    width:70px;
-    height:70px;
-    border:7px solid rgba(255,255,255,0.2);
-    border-top:7px solid #ffb703;
-    border-radius:50%;
-    animation:spin 1s linear infinite;
-    margin-bottom:20px;
+/* =========================================
+   GAME STYLE LOADER
+========================================= */
+
+.game-loader-box{
+
+    background:#0a2540;
+
+    padding:40px;
+
+    border-radius:24px;
+
+    width:90%;
+
+    max-width:500px;
+
+    text-align:center;
+
+    box-shadow:0 15px 50px rgba(0,0,0,0.35);
+
 }
 
-@keyframes spin{
-    100%{
-        transform:rotate(360deg);
-    }
+.game-loader-box h2{
+
+    font-size:30px;
+
+    margin-bottom:15px;
+
+    color:white;
+
+}
+
+.game-loader-box p{
+
+    color:#d9e6f2;
+
+    margin-bottom:28px;
+
+    line-height:1.7;
+
+}
+
+.progress-container{
+
+    width:100%;
+
+    height:24px;
+
+    background:rgba(255,255,255,0.15);
+
+    border-radius:40px;
+
+    overflow:hidden;
+
+    margin-bottom:18px;
+
+}
+
+.progress-bar{
+
+    width:0%;
+
+    height:100%;
+
+    background:linear-gradient(
+        90deg,
+        #ffb703,
+        #ffd166
+    );
+
+    border-radius:40px;
+
+    transition:width 0.25s ease;
+
+}
+
+.progress-text{
+
+    font-size:22px;
+
+    font-weight:700;
+
+    color:#ffcf5c;
+
+}
+
+/* =========================================
+   BLOG SIDEBAR
+========================================= */
+
+.menu-btn{
+
+    position:fixed;
+    top:20px;
+    left:20px;
+
+    z-index:10001;
+
+    background:#0a2540;
+    color:white;
+
+    border:none;
+
+    padding:14px 20px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-size:16px;
+    font-weight:600;
+
+    box-shadow:0 6px 18px rgba(0,0,0,0.2);
+
+}
+
+.menu-btn:hover{
+    background:#12355d;
+}
+
+.sidebar{
+
+    position:fixed;
+
+    top:0;
+    left:-340px;
+
+    width:320px;
+    height:100%;
+
+    background:white;
+
+    z-index:10002;
+
+    box-shadow:5px 0 25px rgba(0,0,0,0.15);
+
+    transition:0.35s ease;
+
+    overflow-y:auto;
+
+}
+
+.sidebar.active{
+    left:0;
+}
+
+.sidebar-header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:25px;
+
+    background:#071c35;
+    color:white;
+
+}
+
+.sidebar-header h2{
+    font-size:24px;
+}
+
+.close-btn{
+
+    background:none;
+    border:none;
+
+    color:white;
+
+    font-size:24px;
+
+    cursor:pointer;
+
+}
+
+.sidebar-links{
+    padding:20px;
+}
+
+.sidebar-links a{
+
+    display:block;
+
+    text-decoration:none;
+
+    color:#0a2540;
+
+    padding:16px 14px;
+
+    border-radius:10px;
+
+    margin-bottom:10px;
+
+    font-weight:500;
+
+    transition:0.3s;
+
+    border:1px solid #e5edf5;
+
+}
+
+.sidebar-links a:hover{
+
+    background:#f4f7fb;
+
+    transform:translateX(5px);
+
+}
+
+.overlay{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    background:rgba(0,0,0,0.45);
+
+    z-index:10000;
+
+    display:none;
+
+}
+
+.overlay.active{
+    display:block;
 }
 
 /* =========================================
@@ -362,6 +682,11 @@ footer p{
         width:100%;
     }
 
+    .toast{
+        left:20px;
+        right:20px;
+    }
+
 }
 
 </style>
@@ -371,18 +696,117 @@ footer p{
 <body>
 
 <!-- =========================================
+     BLOG SIDEBAR
+========================================= -->
+
+<div id="sidebar" class="sidebar">
+
+    <div class="sidebar-header">
+
+        <h2>MSPK</h2>
+
+        <button
+            class="close-btn"
+            onclick="closeSidebar()"
+        >
+            ✕
+        </button>
+
+    </div>
+
+    <div class="sidebar-links">
+
+        <a href="index.html">
+            🏠 Home
+        </a>
+
+        <a href="articles.html">
+            📘 Articles
+        </a>
+
+        <a href="about-founder.html">
+            👨‍🏫 About Founder
+        </a>
+
+        <a href="about.html">
+            🌐 About Website
+        </a>
+        
+        <a href="disclaimer.html">
+            ⚠️ Disclaimer
+        </a>
+
+        <a href="privacy.html">
+            🔒 Privacy Policy
+        </a>
+        <a href="contact.html" class="sidebar-link">
+            📩 Contact Us
+        </a>
+
+    </div>
+
+</div>
+
+<!-- =========================================
+     SIDEBAR OVERLAY
+========================================= -->
+
+<div
+    id="overlay"
+    class="overlay"
+    onclick="closeSidebar()"
+></div>
+
+<!-- =========================================
+     MENU BUTTON
+========================================= -->
+
+<button
+    class="menu-btn"
+    onclick="openSidebar()"
+>
+    ☰
+</button>
+
+<!-- =========================================
      LOADER
 ========================================= -->
 
 <div id="loader">
 
-    <div class="spinner"></div>
+    <div class="game-loader-box">
 
-    <h2>Generating Professional Document...</h2>
+        <h2>Generating Professional Document</h2>
 
-    <p>Please wait while your file is being prepared.</p>
+        <p>
+            Please wait while MSPK AI processes your file...
+        </p>
+
+        <div class="progress-container">
+
+            <div
+                class="progress-bar"
+                id="progressBar"
+            ></div>
+
+        </div>
+
+        <div
+            class="progress-text"
+            id="progressText"
+        >
+            0%
+        </div>
+
+    </div>
 
 </div>
+
+<!-- =========================================
+     TOAST NOTIFICATION
+========================================= -->
+
+<div id="toast" class="toast"></div>
 
 <!-- =========================================
      HEADER
@@ -390,7 +814,7 @@ footer p{
 
 <header>
 
-    <h1>MSPK FOR CHARTERED</h1>
+    <h1>Free ChatGPT to Word Converter – Convert Equations, Tables & AI Text to DOCX</h1>
 
     <p>
         Convert ChatGPT & AI Generated Equations,
@@ -442,6 +866,7 @@ footer p{
 
             <button
                 class="download-btn"
+                id="downloadBtn"
                 onclick="generateDoc()"
             >
                 Download Word File
@@ -449,7 +874,7 @@ footer p{
 
             <button
                 class="pdf-btn"
-                onclick="alert('PDF Conversion Coming Soon')"
+                onclick="showToast('PDF Conversion Coming Soon', 'info')"
             >
                 PDF Coming Soon
             </button>
@@ -485,7 +910,7 @@ footer p{
 
             <div class="feature-box">
 
-                <h3>AI Equation Support</h3>
+                <h3>✨ AI Equation Support</h3>
 
                 <p>
                     Converts ChatGPT and AI generated equations
@@ -496,7 +921,7 @@ footer p{
 
             <div class="feature-box">
 
-                <h3>Professional Tables</h3>
+                <h3>📊 Professional Tables</h3>
 
                 <p>
                     Automatically converts markdown tables
@@ -507,7 +932,7 @@ footer p{
 
             <div class="feature-box">
 
-                <h3>Real Word Formatting</h3>
+                <h3>📄 Real Word Formatting</h3>
 
                 <p>
                     Generates professional Times New Roman
@@ -518,7 +943,7 @@ footer p{
 
             <div class="feature-box">
 
-                <h3>Equation Conversion Focus</h3>
+                <h3>💰 Equation Conversion Focus</h3>
 
                 <p>
                     Optimized for financial calculations,
@@ -531,59 +956,7 @@ footer p{
 
     </div>
 
-    <!-- =====================================
-         ABOUT FOUNDER
-    ====================================== -->
-
-    <div class="card about-section">
-
-        <img
-            src="logo.png"
-            alt="MSPK FOR CHARTERED Logo"
-        >
-
-        <div class="about-content">
-
-            <h2>About the Founder</h2>
-
-            <p>
-
-                I am
-
-                <span class="highlight">
-                    Muhammed Sinan P K
-                </span>
-
-                from Calicut, Kerala, India.
-
-            </p>
-
-            <p>
-
-                I am a faculty for
-
-                <span class="highlight">
-                    CA INTERMEDIATE Financial Management
-                    and Advanced Accounting.
-                </span>
-
-            </p>
-
-            <p>
-
-                This platform helps students and professionals
-                convert AI-generated equations, formulas,
-                financial calculations and tables into
-                professional Microsoft Word documents.
-
-            </p>
-
-        </div>
-
-    </div>
-
 </div>
-
 <!-- =========================================
      FOOTER
 ========================================= -->
@@ -596,13 +969,29 @@ footer p{
         © 2026 All Rights Reserved
     </p>
 
-    <div class="footer-links">
+<div class="footer-links">
 
-        <a href="privacy.html">
-            Privacy Policy
-        </a>
+    <a href="privacy.html">
+        Privacy Policy
+    </a>
 
-    </div>
+    <a href="articles.html">
+        Articles
+    </a>
+    <a href="about.html">
+        About
+    </a>
+    <a href="disclaimer.html">
+        Disclaimer
+    </a>
+    <a href="contact.html" class="sidebar-link">
+        Contact Us
+    </a>
+    <a href="about-founder.html">
+        About Founder
+    </a>
+
+</div>
 
 </footer>
 
@@ -612,83 +1001,257 @@ footer p{
 
 <script>
 
-function clearText(){
+// =========================================
+// SIDEBAR FUNCTIONS
+// =========================================
+
+function openSidebar(){
 
     document
-        .getElementById("inputText")
-        .value = "";
+        .getElementById("sidebar")
+        .classList
+        .add("active");
+
+    document
+        .getElementById("overlay")
+        .classList
+        .add("active");
+
 }
 
-async function generateDoc(){
+function closeSidebar(){
 
-    const text =
-        document.getElementById("inputText").value;
+    document
+        .getElementById("sidebar")
+        .classList
+        .remove("active");
 
-    if(!text.trim()){
+    document
+        .getElementById("overlay")
+        .classList
+        .remove("active");
 
-        alert("Please enter text first!");
+}
 
+// =========================================
+// API CONFIGURATION
+// =========================================
+
+const API_CONFIG = {
+
+    LOCAL: "http://127.0.0.1:8000",
+
+    PRODUCTION: "https://mspk-chatgpt-word-converter-1.onrender.com",
+
+};
+
+// Get API URL based on current environment
+function getApiUrl() {
+    if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+        return API_CONFIG.LOCAL;
+    }
+    return API_CONFIG.PRODUCTION;
+}
+// =========================================
+// TOAST NOTIFICATIONS
+// =========================================
+
+function showToast(message, type = "info", duration = 3000) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.className = `toast ${type}`;
+    toast.style.display = "block";
+
+    setTimeout(() => {
+        toast.style.display = "none";
+    }, duration);
+}
+
+// =========================================
+// CLEAR TEXT
+// =========================================
+
+function clearText() {
+    document.getElementById("inputText").value = "";
+    showToast("Text cleared", "info");
+}
+
+// =========================================
+// GAME STYLE LOADER
+// =========================================
+
+let loaderInterval;
+
+function startLoader(){
+
+    let progress = 0;
+
+    const progressBar =
+        document.getElementById("progressBar");
+
+    const progressText =
+        document.getElementById("progressText");
+
+    progressBar.style.width = "0%";
+
+    progressText.innerText = "0%";
+
+    loaderInterval = setInterval(() => {
+
+        if(progress < 90){
+
+            progress += Math.floor(
+                Math.random() * 8
+            ) + 2;
+
+            if(progress > 90){
+                progress = 90;
+            }
+
+            progressBar.style.width =
+                progress + "%";
+
+            progressText.innerText =
+                progress + "%";
+        }
+
+    }, 300);
+
+}
+
+function finishLoader(){
+
+    clearInterval(loaderInterval);
+
+    const progressBar =
+        document.getElementById("progressBar");
+
+    const progressText =
+        document.getElementById("progressText");
+
+    progressBar.style.width = "100%";
+
+    progressText.innerText = "100%";
+}
+
+// =========================================
+// GENERATE DOCUMENT
+// =========================================
+
+async function generateDoc() {
+    const text = document.getElementById("inputText").value;
+    const downloadBtn = document.getElementById("downloadBtn");
+    const loader = document.getElementById("loader");
+
+    // Validation
+    if (!text.trim()) {
+        showToast("Please enter text first!", "error");
         return;
     }
 
-    const loader =
-        document.getElementById("loader");
+    if (text.length > 500000) {
+        showToast("Text is too long (max 500KB)", "error");
+        return;
+    }
 
+    // Disable button and show loader
+    downloadBtn.disabled = true;
     loader.style.display = "flex";
+    startLoader();
 
-    try{
+    try {
+        const apiUrl = getApiUrl();
+        const response = await fetch(
+            `${apiUrl}/generate-docx`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ text }),
+            }
+        );
 
-        const response =
-            await fetch(
-                "https://mspk-chatgpt-word-converter-1.onrender.com/generate-docx",
-                {
-                    method:"POST",
-
-                    headers:{
-                        "Content-Type":"application/json"
-                    },
-
-                    body:JSON.stringify({ text })
-                }
-            );
-
-        if(!response.ok){
-
-            throw new Error("Server Error");
+        // Handle different response statuses
+        if (response.status === 413) {
+            throw new Error("Text is too large. Please reduce the content.");
         }
 
-        const blob =
-            await response.blob();
+        if (response.status === 429) {
+            throw new Error("Too many requests. Please wait a moment and try again.");
+        }
 
-        const url =
-            window.URL.createObjectURL(blob);
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(
+                errorData.detail || `Server error: ${response.status}`
+            );
+        }
 
-        const a =
-            document.createElement("a");
+        // WAIT UNTIL LOADER REACHES 100%
+
+        finishLoader();
+
+        await new Promise(resolve =>
+
+            setTimeout(resolve, 1200)
+
+        );
+
+        // DOWNLOAD FILE
+
+        const blob = await response.blob();
+
+        const url = window.URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
 
         a.href = url;
 
-        a.download = "MSPK_Report.docx";
+        a.download =
+            `MSPK_Report_${new Date().getTime()}.docx`;
 
         document.body.appendChild(a);
 
         a.click();
 
-        window.URL.revokeObjectURL(url);
+        setTimeout(() => {
 
-        a.remove();
+            window.URL.revokeObjectURL(url);
 
-    }catch(error){
+            a.remove();
 
-        console.error(error);
+            loader.style.display = "none";
 
-        alert("Error connecting to server.");
+        }, 500);
 
-    }finally{
+        showToast(
 
+            "Document generated successfully!",
+
+            "success"
+
+        );
+
+           } catch (error) {
+        console.error("Error:", error);
+        showToast(`Error: ${error.message}`, "error", 5000);
+    } finally {
+        downloadBtn.disabled = false;
         loader.style.display = "none";
     }
 }
+
+// =========================================
+// KEYBOARD SHORTCUT
+// =========================================
+
+// Ctrl+Enter or Cmd+Enter to generate
+document.addEventListener("keydown", (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+        generateDoc();
+    }
+});
 
 </script>
 
