@@ -1,6 +1,7 @@
-fastapi
-uvicorn
-python-docx
-lxml
-latex2mathml
-pydantic
+fastapi>=0.104.1
+uvicorn>=0.24.0
+python-docx>=0.8.11
+latex2mathml>=3.81.0
+lxml>=4.9.3
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
