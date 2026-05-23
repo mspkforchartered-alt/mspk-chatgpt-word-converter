@@ -1100,28 +1100,55 @@ function startLoader(){
     const progressText =
         document.getElementById("progressText");
 
+    const loaderMessage =
+        document.querySelector(".game-loader-box p");
+
     progressBar.style.width = "0%";
 
     progressText.innerText = "0%";
 
     loaderInterval = setInterval(() => {
 
-        if(progress < 90){
+        // FAST INITIAL PROGRESS
+
+        if(progress < 70){
 
             progress += Math.floor(
-                Math.random() * 8
-            ) + 2;
+                Math.random() * 6
+            ) + 3;
 
-            if(progress > 90){
-                progress = 90;
-            }
-
-            progressBar.style.width =
-                progress + "%";
-
-            progressText.innerText =
-                progress + "%";
         }
+
+        // SLOW PROFESSIONAL FINISH
+
+        else if(progress < 90){
+
+            progress += Math.floor(
+                Math.random() * 2
+            ) + 1;
+
+        }
+
+        // VERY SLOW FINALIZATION
+
+        else if(progress < 98){
+
+            progress += 0.3;
+
+            loaderMessage.innerText =
+                "Finalizing Word document...";
+
+        }
+
+        if(progress > 98){
+            progress = 98;
+        }
+
+        progressBar.style.width =
+            progress + "%";
+
+        progressText.innerText =
+            Math.floor(progress) + "%";
 
     }, 300);
 
@@ -1137,9 +1164,15 @@ function finishLoader(){
     const progressText =
         document.getElementById("progressText");
 
+    const loaderMessage =
+        document.querySelector(".game-loader-box p");
+
     progressBar.style.width = "100%";
 
     progressText.innerText = "100%";
+
+    loaderMessage.innerText =
+        "Document ready. Download starting...";
 }
 
 // =========================================
