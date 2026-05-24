@@ -54,21 +54,41 @@ body{
 
 .home-btn{
 
-    display:inline-block;
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
 
     text-decoration:none;
 
-    background:#0a2540;
+    background:#0A2540;
 
     color:white;
 
-    padding:12px 22px;
+    padding:14px 26px;
 
-    border-radius:10px;
+    border-radius:12px;
 
     margin-bottom:35px;
 
     font-weight:600;
+
+    font-size:17px;
+
+    transition:0.3s ease;
+
+    box-shadow:0 6px 18px rgba(0,0,0,0.12);
+
+}
+
+.home-btn:hover{
+
+    background:#12355d;
+
+    transform:translateY(-3px);
+
+    box-shadow:0 10px 24px rgba(0,0,0,0.18);
 
 }
 
@@ -120,6 +140,8 @@ h1{
 
     font-size:24px;
 
+    line-height:1.4;
+
 }
 
 .article-card p{
@@ -128,7 +150,9 @@ h1{
 
     margin-bottom:20px;
 
-    line-height:1.7;
+    line-height:1.8;
+
+    font-size:17px;
 
 }
 
@@ -142,17 +166,21 @@ h1{
 
     color:white;
 
-    padding:10px 18px;
+    padding:12px 20px;
 
     border-radius:10px;
 
-    font-weight:500;
+    font-weight:600;
+
+    transition:0.3s ease;
 
 }
 
 .read-btn:hover{
 
     background:#12355d;
+
+    transform:translateY(-2px);
 
 }
 
@@ -172,8 +200,8 @@ h1{
 
 <div class="container">
 
-    <a href="index.html" class="Back ">
-        ← Back to home
+    <a href="index.html" class="home-btn">
+        ← Back to Home
     </a>
 
     <h1>
@@ -246,40 +274,39 @@ h1{
 
         </div>
 
-    	
-<div class="article-card">
+        <div class="article-card">
 
-    <h2>
-        Convert Handwritten Notes into Word
-    </h2>
+            <h2>
+                Convert Handwritten Notes into Word
+            </h2>
 
-    <p>
-        Learn how to convert messy handwritten notes into clean and professional Microsoft Word documents using AI tools and MSPK ChatGPT to Word Converter.
-    </p>
+            <p>
+                Learn how to convert messy handwritten notes into clean and professional Microsoft Word documents using AI tools and MSPK ChatGPT to Word Converter.
+            </p>
 
-    <a href="handwritten-notes-to-word.html" class="read-btn">
-        Read Article
-    </a>
+            <a href="handwritten-notes-to-word.html" class="read-btn">
+                Read Article
+            </a>
 
-</div>
+        </div>
 
-<div class="article-card">
+        <div class="article-card">
 
-    <h2>
-        Convert AI Assignments into DOCX
-    </h2>
+            <h2>
+                Convert AI Assignments into DOCX
+            </h2>
 
-    <p>
-        Learn how to convert AI-generated assignments into clean and professional Microsoft Word DOCX documents easily.
-    </p>
+            <p>
+                Learn how to convert AI-generated assignments into clean and professional Microsoft Word DOCX documents easily.
+            </p>
 
-    <a href="ai-assignment-docx.html" class="read-btn">
-        Read Article
-    </a>
+            <a href="ai-assignment-docx.html" class="read-btn">
+                Read Article
+            </a>
 
-</div>
+        </div>
 
-</div>
+    </div>
 
 </div>
 
