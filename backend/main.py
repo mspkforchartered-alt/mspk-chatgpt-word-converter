@@ -575,10 +575,33 @@ def add_word_equation(
         run.font.name = "Courier New"
 
 # =========================================
-# TABLE ENGINE
+# PROFESSIONAL TABLE ENGINE
 # =========================================
 
 def add_table(doc, lines):
+
+    from docx.shared import Inches
+    from docx.enum.section import WD_ORIENT
+
+    # =====================================
+    # LANDSCAPE MODE
+    # =====================================
+
+    section = doc.sections[0]
+
+    section.orientation = WD_ORIENT.LANDSCAPE
+
+    new_width, new_height = (
+        section.page_height,
+        section.page_width
+    )
+
+    section.page_width = new_width
+    section.page_height = new_height
+
+    # =====================================
+    # PARSE TABLE ROWS
+    # =====================================
 
     rows = []
 
@@ -592,7 +615,7 @@ def add_table(doc, lines):
 
         raw_cols = line.split("|")
 
-        # PRESERVE EMPTY CELLS
+        # REMOVE OUTER EMPTY CELLS
 
         if (
             raw_cols
@@ -622,10 +645,18 @@ def add_table(doc, lines):
     if not rows:
         return
 
+    # =====================================
+    # MAX COLUMN COUNT
+    # =====================================
+
     max_cols = max(
         len(r)
         for r in rows
     )
+
+    # =====================================
+    # CREATE TABLE
+    # =====================================
 
     table = doc.add_table(
 
@@ -637,12 +668,52 @@ def add_table(doc, lines):
 
     table.style = "Table Grid"
 
-    table.autofit = True
+    # VERY IMPORTANT
+    table.autofit = False
+
+    # =====================================
+    # COLUMN WIDTHS
+    # =====================================
+
+    if max_cols >= 2:
+
+        table.columns[0].width = Inches(3.0)
+        table.columns[1].width = Inches(4.8)
+
+    # =====================================
+    # PROCESS ROWS
+    # =====================================
 
     for i, row in enumerate(rows):
 
         while len(row) < max_cols:
             row.append("")
+
+        # =================================
+        # FIXED ROW HEIGHT
+        # =================================
+
+        tr = table.rows[i]._tr
+
+        trPr = tr.get_or_add_trPr()
+
+        trHeight = OxmlElement('w:trHeight')
+
+        trHeight.set(
+            qn('w:val'),
+            "700"
+        )
+
+        trHeight.set(
+            qn('w:hRule'),
+            "atLeast"
+        )
+
+        trPr.append(trHeight)
+
+        # =================================
+        # PROCESS CELLS
+        # =================================
 
         for j, cell_text in enumerate(row):
 
@@ -650,15 +721,17 @@ def add_table(doc, lines):
 
             para = cell_obj.paragraphs[0]
 
-            para.paragraph_format.space_before = Pt(0)
+            para.paragraph_format.space_before = Pt(2)
 
             para.paragraph_format.space_after = Pt(2)
 
-            para.paragraph_format.line_spacing = 1.0
+            para.paragraph_format.line_spacing = 1.1
 
             cleaned_cell = cell_text.strip()
 
-            # REMOVE OUTER [ ] ONLY
+            # =============================
+            # REMOVE OUTER [ ]
+            # =============================
 
             if (
                 cleaned_cell.startswith("[")
@@ -670,8 +743,9 @@ def add_table(doc, lines):
                     1:-1
                 ].strip()
 
+            # =============================
             # REMOVE ESCAPED SPACES
-            # ONLY FOR NORMAL TEXT EQUATIONS
+            # =============================
 
             if (
                 r"\frac" not in cleaned_cell
@@ -680,9 +754,11 @@ def add_table(doc, lines):
                 cleaned_cell = cleaned_cell.replace(
                     r"\ ",
                     " "
-                )            
+                )
 
-            # TRUE LATEX EQUATION ONLY
+            # =============================
+            # EQUATION DETECTION
+            # =============================
 
             latex_equation = (
 
@@ -708,9 +784,19 @@ def add_table(doc, lines):
 
                 r"\alpha" in cleaned_cell
 
+                or
+
+                "^" in cleaned_cell
+
+                or
+
+                "_" in cleaned_cell
+
             )
 
+            # =============================
             # EQUATION CELL
+            # =============================
 
             if latex_equation:
 
@@ -720,15 +806,72 @@ def add_table(doc, lines):
 
                 try:
 
-                    add_word_equation(
-                        para,
+                    cleaned_eq = clean_equation(
                         cleaned_cell
                     )
+
+                    # -------------------------
+                    # NESTED FRACTION CHECK
+                    # -------------------------
+
+                    frac_depth = cleaned_eq.count(
+                        r"\frac"
+                    )
+
+                    # -------------------------
+                    # SIMPLE EQUATIONS
+                    # -------------------------
+
+                    if frac_depth <= 3:
+
+                        add_word_equation(
+                            para,
+                            cleaned_eq
+                        )
+
+                    # -------------------------
+                    # COMPLEX EQUATION FALLBACK
+                    # -------------------------
+
+                    else:
+
+                        fallback_eq = cleaned_eq
+
+                        fallback_eq = fallback_eq.replace(
+                            r"\frac",
+                            "/"
+                        )
+
+                        fallback_eq = fallback_eq.replace(
+                            "{",
+                            "("
+                        )
+
+                        fallback_eq = fallback_eq.replace(
+                            "}",
+                            ")"
+                        )
+
+                        run = para.add_run(
+                            fallback_eq
+                        )
+
+                        run.font.name = (
+                            "Cambria Math"
+                        )
+
+                        run.font.size = Pt(11)
+
+                        run.italic = True
 
                 except Exception as e:
 
                     logger.error(
-                        f"Table Equation Error: {e}"
+                        f"FAILED EQUATION: {cleaned_cell}"
+                    )
+
+                    logger.error(
+                        f"Equation Error: {e}"
                     )
 
                     run = para.add_run(
@@ -739,27 +882,15 @@ def add_table(doc, lines):
                         "Courier New"
                     )
 
-                    run.font.size = Pt(9)
+                    run.font.size = Pt(10)
 
-            # NORMAL CELL
+            # =============================
+            # NORMAL TEXT CELL
+            # =============================
 
             else:
 
                 normal_text = cleaned_cell
-
-                # REMOVE [ ]
-
-                if (
-                    normal_text.startswith("[")
-                    and
-                    normal_text.endswith("]")
-                ):
-
-                    normal_text = normal_text[
-                        1:-1
-                    ].strip()
-
-                # REMOVE ESCAPED SPACES
 
                 normal_text = normal_text.replace(
                     r"\ ",
@@ -784,7 +915,8 @@ def add_table(doc, lines):
                 match = re.search(
                     r'([A-Za-z]+)\(?_\{([^{}]+)\}\)?',
                     normal_text
-                )         
+                )
+
                 if match:
 
                     main_text = match.group(1)
@@ -824,20 +956,24 @@ def add_table(doc, lines):
                     )
 
                     run.font.size = Pt(12)
-                
-                # HEADER ROW
+
+                # =========================
+                # HEADER ROW STYLING
+                # =========================
 
                 if i == 0:
 
-                    run.bold = True
+                    for run in para.runs:
 
-                    run.font.color.rgb = (
-                        RGBColor(
-                            255,
-                            255,
-                            255
+                        run.bold = True
+
+                        run.font.color.rgb = (
+                            RGBColor(
+                                255,
+                                255,
+                                255
+                            )
                         )
-                    )
 
                     tcPr = (
                         cell_obj._tc
@@ -852,6 +988,10 @@ def add_table(doc, lines):
                     )
 
                     tcPr.append(shd)
+
+    # =====================================
+    # FINAL SPACING
+    # =====================================
 
     doc.add_paragraph()
 
