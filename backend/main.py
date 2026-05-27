@@ -38,7 +38,9 @@ app.add_middleware(
     CORSMiddleware,
 allow_origins=[
     "https://www.mspkchatgpttoword.com",
-    "https://mspkchatgpttoword.com"
+    "https://mspkchatgpttoword.com",
+    "http://127.0.0.1:5500",
+    "http://localhost:5500"
 ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -584,22 +586,6 @@ def add_table(doc, lines):
     from docx.enum.section import WD_ORIENT
 
     # =====================================
-    # LANDSCAPE MODE
-    # =====================================
-
-    section = doc.sections[0]
-
-    section.orientation = WD_ORIENT.LANDSCAPE
-
-    new_width, new_height = (
-        section.page_height,
-        section.page_width
-    )
-
-    section.page_width = new_width
-    section.page_height = new_height
-
-    # =====================================
     # PARSE TABLE ROWS
     # =====================================
 
@@ -786,6 +772,22 @@ def add_table(doc, lines):
 
                 or
 
+                r"\displaystyle" in cleaned_cell
+
+                or
+
+                r"\times" in cleaned_cell
+
+                or
+
+                r"\left" in cleaned_cell
+
+                or
+
+                r"\right" in cleaned_cell
+
+                or
+
                 "^" in cleaned_cell
 
                 or
@@ -793,7 +795,6 @@ def add_table(doc, lines):
                 "_" in cleaned_cell
 
             )
-
             # =============================
             # EQUATION CELL
             # =============================
@@ -808,6 +809,70 @@ def add_table(doc, lines):
 
                     cleaned_eq = clean_equation(
                         cleaned_cell
+                    )
+
+                    # =====================================
+                    # TABLE-SPECIFIC CLEANUP ONLY
+                    # =====================================
+
+                    # REMOVE OUTER WRAPPER BRACKETS
+
+                    if (
+                        cleaned_eq.startswith("(")
+                        and
+                        cleaned_eq.endswith(")")
+                    ):
+
+                        cleaned_eq = cleaned_eq[
+                            1:-1
+                        ].strip()
+
+                    # REMOVE DISPLAYSTYLE
+
+                    cleaned_eq = cleaned_eq.replace(
+                        r"\displaystyle",
+                        ""
+                    )
+
+                    # REMOVE \left and \right
+
+                    cleaned_eq = cleaned_eq.replace(
+                        r"\left",
+                        ""
+                    )
+
+                    cleaned_eq = cleaned_eq.replace(
+                        r"\right",
+                        ""
+                    )
+
+                    # REMOVE ESCAPED SPACES
+
+                    cleaned_eq = cleaned_eq.replace(
+                        r"\ ",
+                        " "
+                    )
+
+                    # REMOVE DOUBLE SPACES
+
+                    cleaned_eq = re.sub(
+                        r"\s+",
+                        " ",
+                        cleaned_eq
+                    ).strip()
+
+                    # REMOVE DOUBLE BRACKETS
+
+                    cleaned_eq = re.sub(
+                        r'\(\s*\(',
+                        '(',
+                        cleaned_eq
+                    )
+
+                    cleaned_eq = re.sub(
+                        r'\)\s*\)',
+                        ')',
+                        cleaned_eq
                     )
 
                     # -------------------------
