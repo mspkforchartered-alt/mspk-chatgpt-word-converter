@@ -1,20 +1,31 @@
 {
-  "name": "MSPK ChatGPT to Word",
-  "short_name": "MSPK Word",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#0A2540",
-  "icons": [
-    {
-      "src": "favicon.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "favicon.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
+    "name": "MSPK ChatGPT to Word Converter",
+    "short_name": "MSPK Word",
+    "description": "Convert ChatGPT, Gemini, Claude and AI generated content into professional Microsoft Word DOCX documents with equations, tables, financial formulas and structured formatting.",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#ffffff",
+    "theme_color": "#0A2540",
+    "lang": "en",
+    "categories": [
+        "education",
+        "productivity",
+        "business"
+    ],
+    "icons": [
+        {
+            "src": "favicon.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "favicon.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
 }
