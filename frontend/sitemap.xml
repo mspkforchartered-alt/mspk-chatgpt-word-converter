@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<urlset
-    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
         <loc>https://www.mspkchatgpttoword.com/</loc>
@@ -10,6 +8,10 @@
 
     <url>
         <loc>https://www.mspkchatgpttoword.com/about.html</loc>
+    </url>
+
+    <url>
+        <loc>https://www.mspkchatgpttoword.com/about-founder.html</loc>
     </url>
 
     <url>
@@ -29,9 +31,31 @@
     </url>
 
     <url>
-        <loc>https://www.mspkchatgpttoword.com/about-founder.html</loc>
+        <loc>https://www.mspkchatgpttoword.com/article.html</loc>
     </url>
-<url>
-    <loc>https://www.mspkchatgpttoword.com/chatgpt-to-word-converter-by-mspk.html</loc>
-</url>
+
+    <url>
+        <loc>https://www.mspkchatgpttoword.com/chatgpt-to-word-converter-by-mspk.html</loc>
+    </url>
+
+    <url>
+        <loc>https://www.mspkchatgpttoword.com/best-ai-tools.html</loc>
+    </url>
+
+    <url>
+        <loc>https://www.mspkchatgpttoword.com/financial-table-conversion.html</loc>
+    </url>
+
+    <url>
+        <loc>https://www.mspkchatgpttoword.com/handwritten-notes-to-word.html</loc>
+    </url>
+
+    <url>
+        <loc>https://www.mspkchatgpttoword.com/why-chatgpt-breaks.html</loc>
+    </url>
+
+    <url>
+        <loc>https://www.mspkchatgpttoword.com/ai-assignment-docx.html</loc>
+    </url>
+
 </urlset>
