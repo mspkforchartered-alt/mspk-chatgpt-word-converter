@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
@@ -57,13 +56,17 @@
     <url>
         <loc>https://www.mspkchatgpttoword.com/ai-assignment-docx.html</loc>
     </url>
-<url>
-    <loc>https://www.mspkchatgpttoword.com/free-chatgpt-to-word-converter.html</loc>
-</url>
-<url>
-    <loc>
-        https://www.mspkchatgpttoword.com/chatgpt-equations-to-word.html
-    </loc>
-</url>
+
+    <url>
+        <loc>https://www.mspkchatgpttoword.com/free-chatgpt-to-word-converter.html</loc>
+    </url>
+
+    <url>
+        <loc>https://www.mspkchatgpttoword.com/50prompts.html</loc>
+    </url>
+
+    <url>
+        <loc>https://www.mspkchatgpttoword.com/chatgpt-equations-to-word.html</loc>
+    </url>
 
 </urlset>
