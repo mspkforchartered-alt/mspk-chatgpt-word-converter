@@ -772,316 +772,535 @@ footer p{
 }
 
 /* =====================================
-   KNOWLEDGE CENTER
+   KNOWLEDGE CENTER - PROFESSIONAL
 ====================================== */
 
 .knowledge-section{
-
     max-width:1200px;
     margin:90px auto;
     padding:0 20px;
-
 }
 
+.knowledge-section-inner{
+    background:#ffffff;
+    border-radius:28px;
+    padding:55px 50px;
+    box-shadow:0 15px 40px rgba(10,37,64,0.08);
+}
+
+
+/* =====================================
+   SECTION TITLE
+====================================== */
+
 .knowledge-section .section-title{
-
     text-align:center;
-    margin-bottom:50px;
-
+    margin-bottom:45px;
 }
 
 .knowledge-section h2{
-
     font-size:42px;
+    font-weight:700;
     color:#0A2540;
-    margin-bottom:18px;
-
+    margin:0 0 18px;
+    line-height:1.2;
 }
 
 .knowledge-section .section-title p{
-
     max-width:900px;
-    margin:auto;
-    line-height:1.9;
+    margin:0 auto;
+    line-height:1.8;
     color:#555;
     font-size:18px;
-
 }
 
+
+/* =====================================
+   KNOWLEDGE CARDS
+====================================== */
+
 .knowledge-grid{
-
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
-    gap:25px;
-
+    grid-template-columns:repeat(3,1fr);
+    gap:28px;
 }
 
 .knowledge-card{
-
-    background:#fff;
-    padding:30px;
-    border-radius:18px;
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
-    transition:.3s;
-
+    background:#f8fbff;
+    border:1px solid #dce8f4;
+    padding:32px 30px;
+    border-radius:22px;
+    min-height:280px;
+    transition:all 0.3s ease;
 }
 
 .knowledge-card:hover{
-
     transform:translateY(-6px);
-
+    box-shadow:0 12px 30px rgba(10,37,64,0.10);
+    border-color:#c8dced;
 }
+
+
+/* =====================================
+   ARTICLE TITLE
+====================================== */
 
 .knowledge-card h3{
-
     color:#0A2540;
-    margin-bottom:15px;
+    font-size:24px;
+    font-weight:700;
+    margin:0 0 20px;
     line-height:1.4;
-
 }
+
+
+/* =====================================
+   ARTICLE DESCRIPTION
+====================================== */
 
 .knowledge-card p{
-
     color:#555;
-    line-height:1.8;
-    margin-bottom:20px;
-
+    font-size:17px;
+    line-height:1.75;
+    margin:0 0 22px;
 }
+
+
+/* =====================================
+   READ ARTICLE LINK
+====================================== */
 
 .knowledge-card a{
-
+    display:inline-block;
     color:#0A2540;
-    font-weight:600;
+    font-weight:700;
     text-decoration:none;
-
+    padding:10px 18px;
+    border:1px solid #0A2540;
+    border-radius:10px;
+    transition:all 0.3s ease;
 }
 
+.knowledge-card a:hover{
+    background:#0A2540;
+    color:#ffffff;
+}
+
+
+/* =====================================
+   KNOWLEDGE FOOTER
+====================================== */
+
 .knowledge-footer{
-
     text-align:center;
-    margin-top:50px;
-
+    margin-top:45px;
 }
 
 .knowledge-footer p{
-
     max-width:850px;
-    margin:auto;
+    margin:0 auto 25px;
     line-height:1.8;
     color:#555;
-    margin-bottom:25px;
-
 }
 
 .view-all-btn{
-
     display:inline-block;
     background:#0A2540;
-    color:#fff;
+    color:#ffffff;
     text-decoration:none;
     padding:14px 28px;
     border-radius:12px;
     font-weight:600;
-    transition:.3s;
-
+    transition:all 0.3s ease;
 }
 
 .view-all-btn:hover{
-
     background:#12355d;
-
+    transform:translateY(-2px);
 }
+
 
 /* =====================================
-   WHO USES MSPK
+   TABLET
 ====================================== */
 
-.users-section{
+@media(max-width:1000px){
 
-    max-width:1200px;
-    margin:90px auto;
-    padding:0 20px;
-
-}
-
-.users-section .section-title{
-
-    text-align:center;
-    margin-bottom:50px;
+    .knowledge-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
 
 }
 
-.users-section h2{
 
-    font-size:42px;
-    color:#0A2540;
-    margin-bottom:18px;
-
-}
-
-.users-section .section-title p{
-
-    max-width:900px;
-    margin:auto;
-    line-height:1.9;
-    color:#555;
-    font-size:18px;
-
-}
-
-.users-grid{
-
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:25px;
-
-}
-
-.user-card{
-
-    background:#ffffff;
-    padding:30px;
-    border-radius:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
-    transition:.3s;
-
-}
-
-.user-card:hover{
-
-    transform:translateY(-6px);
-
-}
-
-.user-icon{
-
-    font-size:42px;
-    margin-bottom:18px;
-
-}
-
-.user-card h3{
-
-    color:#0A2540;
-    margin-bottom:15px;
-
-}
-
-.user-card p{
-
-    color:#555;
-    line-height:1.8;
-
-}
 /* =====================================
-   WHY MSPK
-====================================== */
-
-.why-mspk{
-
-    max-width:1200px;
-    margin:90px auto;
-    padding:0 20px;
-
-}
-
-.why-grid{
-
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:25px;
-
-}
-
-.why-card{
-
-    background:#fff;
-    padding:30px;
-    border-radius:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
-    transition:.3s;
-
-}
-
-.why-card:hover{
-
-    transform:translateY(-6px);
-
-}
-
-.why-card h3{
-
-    color:#0A2540;
-    margin-bottom:15px;
-
-}
-
-.why-card p{
-
-    color:#555;
-    line-height:1.8;
-
-}
-
-.why-footer{
-
-    margin-top:45px;
-    text-align:center;
-
-}
-
-.why-footer p{
-
-    max-width:900px;
-    margin:auto;
-    line-height:1.9;
-    color:#555;
-    margin-bottom:25px;
-
-}
-
-.learn-more-btn{
-
-    display:inline-block;
-    padding:14px 30px;
-    background:#0A2540;
-    color:white;
-    text-decoration:none;
-    border-radius:12px;
-    font-weight:600;
-
-}
-
-/* =========================================
    MOBILE
-========================================= */
+====================================== */
 
 @media(max-width:768px){
 
-    header h1{
-        font-size:36px;
+    .knowledge-section{
+        margin:60px auto;
+        padding:0 15px;
     }
 
-    header p{
-        font-size:17px;
+    .knowledge-section-inner{
+        padding:35px 25px;
+        border-radius:22px;
     }
 
-    .about-section{
-        flex-direction:column;
-        text-align:center;
+    .knowledge-section h2{
+        font-size:34px;
     }
 
-    .about-section img{
-        width:220px;
+    .knowledge-section .section-title p{
+        font-size:16px;
+        line-height:1.7;
     }
 
-    .buttons button{
-        width:100%;
+    .knowledge-grid{
+        grid-template-columns:1fr;
+        gap:20px;
     }
 
-    .toast{
-        left:20px;
-        right:20px;
+    .knowledge-card{
+        min-height:auto;
+        padding:28px 25px;
+    }
+
+    .knowledge-card h3{
+        font-size:21px;
+    }
+
+    .knowledge-card p{
+        font-size:16px;
+    }
+
+}
+
+/* =====================================
+   WHO USES MSPK - PROFESSIONAL
+====================================== */
+
+.users-section{
+    max-width:1200px;
+    margin:90px auto;
+    padding:0 20px;
+}
+
+.users-section-inner{
+    background:#ffffff;
+    border-radius:28px;
+    padding:55px 50px;
+    box-shadow:0 15px 40px rgba(10,37,64,0.08);
+}
+
+
+/* =====================================
+   SECTION TITLE
+====================================== */
+
+.users-section .section-title{
+    text-align:center;
+    margin-bottom:45px;
+}
+
+.users-section h2{
+    font-size:42px;
+    font-weight:700;
+    color:#0A2540;
+    margin:0 0 18px;
+    line-height:1.2;
+}
+
+.users-section .section-title p{
+    max-width:900px;
+    margin:0 auto;
+    line-height:1.8;
+    color:#555;
+    font-size:18px;
+}
+
+
+/* =====================================
+   USER CARDS
+====================================== */
+
+.users-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:28px;
+}
+
+.user-card{
+    background:#f8fbff;
+    border:1px solid #dce8f4;
+    border-radius:22px;
+    padding:34px 30px;
+    min-height:270px;
+    transition:all 0.3s ease;
+}
+
+.user-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 12px 30px rgba(10,37,64,0.10);
+    border-color:#c8dced;
+}
+
+
+/* =====================================
+   USER ICON
+====================================== */
+
+.user-icon{
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    width:58px;
+    height:58px;
+    font-size:38px;
+    margin-bottom:25px;
+}
+
+
+/* =====================================
+   USER CARD TITLE
+====================================== */
+
+.user-card h3{
+    color:#0A2540;
+    font-size:24px;
+    font-weight:700;
+    line-height:1.3;
+    margin:0 0 18px;
+}
+
+
+/* =====================================
+   USER CARD TEXT
+====================================== */
+
+.user-card p{
+    color:#555;
+    font-size:17px;
+    line-height:1.75;
+    margin:0;
+}
+
+
+/* =====================================
+   TABLET
+====================================== */
+
+@media(max-width:1000px){
+
+    .users-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+
+/* =====================================
+   MOBILE
+====================================== */
+
+@media(max-width:768px){
+
+    .users-section{
+        margin:60px auto;
+        padding:0 15px;
+    }
+
+    .users-section-inner{
+        padding:35px 25px;
+        border-radius:22px;
+    }
+
+    .users-section h2{
+        font-size:34px;
+    }
+
+    .users-section .section-title p{
+        font-size:16px;
+        line-height:1.7;
+    }
+
+    .users-grid{
+        grid-template-columns:1fr;
+        gap:20px;
+    }
+
+    .user-card{
+        min-height:auto;
+        padding:28px 25px;
+    }
+
+    .user-card h3{
+        font-size:21px;
+    }
+
+    .user-card p{
+        font-size:16px;
+    }
+
+}
+
+/* =====================================
+   WHY MSPK - PROFESSIONAL
+====================================== */
+
+.why-mspk{
+    max-width:1200px;
+    margin:90px auto;
+    padding:0 20px;
+}
+
+.why-mspk-inner{
+    background:#ffffff;
+    border-radius:28px;
+    padding:55px 50px;
+    box-shadow:0 15px 40px rgba(10,37,64,0.08);
+}
+
+.why-mspk h2{
+    font-size:42px;
+    font-weight:700;
+    color:#0A2540;
+    margin:0 0 18px;
+    line-height:1.2;
+}
+
+.why-description{
+    color:#555;
+    font-size:18px;
+    line-height:1.8;
+    margin:0 0 45px;
+}
+
+.why-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:28px;
+}
+
+.why-card{
+    background:#f8fbff;
+    border:1px solid #dce8f4;
+    border-radius:22px;
+    padding:32px 30px;
+    min-height:235px;
+    transition:all 0.3s ease;
+}
+
+.why-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 12px 30px rgba(10,37,64,0.10);
+    border-color:#c8dced;
+}
+
+.why-card h3{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:#0A2540;
+    font-size:24px;
+    font-weight:700;
+    line-height:1.3;
+    margin:0 0 20px;
+}
+
+.why-card p{
+    color:#555;
+    font-size:17px;
+    line-height:1.75;
+    margin:0;
+}
+
+.why-footer{
+    margin-top:42px;
+    text-align:center;
+}
+
+.why-footer p{
+    max-width:900px;
+    margin:0 auto 25px;
+    line-height:1.8;
+    color:#555;
+}
+
+.learn-more-btn{
+    display:inline-block;
+    padding:14px 30px;
+    background:#0A2540;
+    color:#ffffff;
+    text-decoration:none;
+    border-radius:12px;
+    font-weight:600;
+    transition:all 0.3s ease;
+}
+
+.learn-more-btn:hover{
+    background:#12385d;
+    transform:translateY(-2px);
+}
+
+
+/* =====================================
+   WHY MSPK - TABLET
+====================================== */
+
+@media(max-width:1000px){
+
+    .why-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+
+/* =====================================
+   WHY MSPK - MOBILE
+====================================== */
+
+@media(max-width:768px){
+
+    .why-mspk{
+        margin:60px auto;
+        padding:0 15px;
+    }
+
+    .why-mspk-inner{
+        padding:35px 25px;
+        border-radius:22px;
+    }
+
+    .why-mspk h2{
+        font-size:34px;
+    }
+
+    .why-description{
+        font-size:16px;
+        line-height:1.7;
+        margin-bottom:30px;
+    }
+
+    .why-grid{
+        grid-template-columns:1fr;
+        gap:20px;
+    }
+
+    .why-card{
+        min-height:auto;
+        padding:28px 25px;
+    }
+
+    .why-card h3{
+        font-size:21px;
+    }
+
+    .why-card p{
+        font-size:16px;
     }
 
 }
@@ -1676,13 +1895,23 @@ The project is financially viable if NPV > 0.
 
 <section class="knowledge-section">
 
-    <div class="section-title">
-        <h2>📚 Knowledge Center</h2>
+    <div class="knowledge-section-inner">
 
-        <p>
-            Explore our comprehensive collection of guides, tutorials and educational articles about ChatGPT, Artificial Intelligence, Microsoft Word, document formatting, equations, financial tables and AI-powered productivity. Whether you are a student, teacher, researcher or professional, our knowledge center helps you learn how to create professional Word documents from AI-generated content quickly and efficiently.
-        </p>
-    </div>
+        <div class="section-title">
+
+            <h2>📚 Knowledge Center</h2>
+
+            <p>
+                Explore our comprehensive collection of guides, tutorials
+                and educational articles about ChatGPT, Artificial Intelligence,
+                Microsoft Word, document formatting, equations, financial tables
+                and AI-powered productivity. Whether you are a student, teacher,
+                researcher or professional, our knowledge center helps you learn
+                how to create professional Word documents from AI-generated
+                content quickly and efficiently.
+            </p>
+
+        </div>
 
     <div class="knowledge-grid">
 
@@ -1749,59 +1978,86 @@ The project is financially viable if NPV > 0.
     </div>
 
 </section>
-<!-- =====================================
-     WHO USES MSPK
-====================================== -->
 
 <section class="users-section">
 
-    <div class="section-title">
+    <div class="users-section-inner">
 
-        <h2>👥 Who Uses MSPK ChatGPT to Word Converter?</h2>
+        <div class="section-title">
 
-        <p>
-            MSPK ChatGPT to Word Converter is designed for anyone who wants to transform AI-generated content into professional Microsoft Word documents. From students preparing assignments to businesses creating reports, our converter helps users save time while preserving formatting, tables, equations and document structure.
-        </p>
-
-    </div>
-
-    <div class="users-grid">
-
-        <div class="user-card">
-
-            <div class="user-icon">🎓</div>
-
-            <h3>Students</h3>
+            <h2>
+                👥 Who Uses MSPK ChatGPT to Word Converter?
+            </h2>
 
             <p>
-                Convert ChatGPT-generated assignments, project reports, class notes, study materials and revision documents into clean Microsoft Word DOCX files with proper headings, tables and formatting.
+                MSPK ChatGPT to Word Converter is designed for anyone who
+                wants to transform AI-generated content into professional
+                Microsoft Word documents. From students preparing assignments
+                to businesses creating reports, our converter helps users save
+                time while preserving formatting, tables, equations and
+                document structure.
             </p>
 
         </div>
 
-        <div class="user-card">
 
-            <div class="user-icon">👨‍🏫</div>
+        <div class="users-grid">
 
-            <h3>Teachers & Educators</h3>
+            <div class="user-card">
 
-            <p>
-                Prepare lecture notes, worksheets, question papers, classroom materials and educational resources quickly while maintaining a professional document layout.
-            </p>
+                <div class="user-icon">
+                    🎓
+                </div>
 
-        </div>
+                <h3>
+                    Students
+                </h3>
 
-        <div class="user-card">
+                <p>
+                    Convert ChatGPT-generated assignments, project reports,
+                    class notes, study materials and revision documents into
+                    clean Microsoft Word DOCX files.
+                </p>
 
-            <div class="user-icon">💼</div>
+            </div>
 
-            <h3>Professionals</h3>
 
-            <p>
-                Create business reports, proposals, documentation, client presentations, meeting summaries and office documents directly from AI-generated content.
-            </p>
+            <div class="user-card">
 
-        </div>
+                <div class="user-icon">
+                    👨‍🏫
+                </div>
+
+                <h3>
+                    Teachers &amp; Educators
+                </h3>
+
+                <p>
+                    Prepare lecture notes, worksheets, question papers,
+                    classroom materials and educational resources quickly
+                    while maintaining a professional document layout.
+                </p>
+
+            </div>
+
+
+            <div class="user-card">
+
+                <div class="user-icon">
+                    💼
+                </div>
+
+                <h3>
+                    Professionals
+                </h3>
+
+                <p>
+                    Create business reports, proposals, documentation,
+                    client presentations, meeting summaries and office
+                    documents directly from AI-generated content.
+                </p>
+
+            </div>
 
         <div class="user-card">
 
@@ -1849,89 +2105,141 @@ The project is financially viable if NPV > 0.
 
 <section class="why-mspk">
 
-    <div class="section-title">
+    <div class="why-mspk-inner">
 
         <h2>⭐ Why Choose MSPK ChatGPT to Word Converter?</h2>
 
-        <p>
-            MSPK ChatGPT to Word Converter is designed to simplify the process of converting AI-generated content into professional Microsoft Word documents. Whether you are working with ChatGPT responses, educational notes, business reports, research documents or financial calculations, our platform helps preserve formatting while saving valuable time.
+        <p class="why-description">
+            MSPK ChatGPT to Word Converter is designed to simplify the process
+            of converting AI-generated content into professional Microsoft Word
+            documents. Whether you are working with ChatGPT responses,
+            educational notes, business reports, research documents or financial
+            calculations, our platform helps preserve formatting while saving
+            valuable time.
         </p>
 
-    </div>
 
-    <div class="why-grid">
+        <div class="why-grid">
 
-        <div class="why-card">
 
-            <h3>📄 Professional DOCX Output</h3>
+            <!-- CARD 1 -->
 
-            <p>
-                Generate Microsoft Word documents with clean formatting, proper headings, lists and structured layouts that are ready for editing, sharing or printing.
-            </p>
+            <div class="why-card">
+
+                <h3>
+                    📄 Professional DOCX Output
+                </h3>
+
+                <p>
+                    Generate Microsoft Word documents with clean formatting,
+                    proper headings, lists and structured layouts that are ready
+                    for editing, sharing or printing.
+                </p>
+
+            </div>
+
+
+            <!-- CARD 2 -->
+
+            <div class="why-card">
+
+                <h3>
+                    📊 Preserve Tables
+                </h3>
+
+                <p>
+                    Convert AI-generated tables into well-organized Word tables,
+                    making financial statements, reports and structured data
+                    easier to read and edit.
+                </p>
+
+            </div>
+
+
+            <!-- CARD 3 -->
+
+            <div class="why-card">
+
+                <h3>
+                    ∑ Equation Support
+                </h3>
+
+                <p>
+                    Convert mathematical equations and technical formulas into
+                    editable Microsoft Word equations while maintaining clarity
+                    and professional presentation.
+                </p>
+
+            </div>
+
+
+            <!-- CARD 4 -->
+
+            <div class="why-card">
+
+                <h3>
+                    ⚡ Fast &amp; Easy
+                </h3>
+
+                <p>
+                    Simply paste your AI-generated content, convert it within
+                    seconds and download a professionally formatted document.
+                </p>
+
+            </div>
+
+
+            <!-- CARD 5 -->
+
+            <div class="why-card">
+
+                <h3>
+                    🤖 Supports Popular AI Tools
+                </h3>
+
+                <p>
+                    Works with content generated by ChatGPT and can also be used
+                    with text created using other AI writing tools.
+                </p>
+
+            </div>
+
+
+            <!-- CARD 6 -->
+
+            <div class="why-card">
+
+                <h3>
+                    🌐 Free Online Access
+                </h3>
+
+                <p>
+                    Use the converter directly from your web browser without
+                    installing additional software, allowing quick and convenient
+                    access from different devices.
+                </p>
+
+            </div>
+
 
         </div>
 
-        <div class="why-card">
 
-            <h3>📊 Preserve Tables</h3>
-
-            <p>
-                Convert AI-generated tables into well-organized Word tables, making financial statements, reports and structured data easier to read and edit.
-            </p>
-
-        </div>
-
-        <div class="why-card">
-
-            <h3>∑ Equation Support</h3>
+        <div class="why-footer">
 
             <p>
-                Convert mathematical equations and technical formulas into editable Microsoft Word equations while maintaining clarity and professional presentation.
+                Convert AI-generated content into professional Microsoft Word
+                documents quickly and easily.
             </p>
 
-        </div>
-
-        <div class="why-card">
-
-            <h3>⚡ Fast & Easy</h3>
-
-            <p>
-                Simply paste your AI-generated content, convert it within seconds and download a professionally formatted Word document without manual formatting.
-            </p>
+            <a
+                href="index.html"
+                class="learn-more-btn"
+            >
+                Try MSPK ChatGPT to Word Converter
+            </a>
 
         </div>
-
-        <div class="why-card">
-
-            <h3>🤖 Supports Popular AI Tools</h3>
-
-            <p>
-                Works with content generated by ChatGPT and can also be used with text created using other AI writing assistants, making document preparation more convenient.
-            </p>
-
-        </div>
-
-        <div class="why-card">
-
-            <h3>🌍 Free Online Access</h3>
-
-            <p>
-                Use the converter directly from your web browser without installing additional software, allowing quick access from desktops, laptops and mobile devices.
-            </p>
-
-        </div>
-
-    </div>
-
-    <div class="why-footer">
-
-        <p>
-            MSPK ChatGPT to Word Converter continues to evolve with new features and educational resources to help students, educators, professionals and researchers create high-quality Microsoft Word documents from AI-generated content more efficiently.
-        </p>
-
-        <a href="about.html" class="learn-more-btn">
-            Learn More About MSPK →
-        </a>
 
     </div>
 
