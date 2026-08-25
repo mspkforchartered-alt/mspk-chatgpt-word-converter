@@ -257,6 +257,10 @@ def clean_equation(eq):
 
     eq = eq.strip()
 
+    # NORMALIZE MULTIPLE EQUAL SIGNS
+    # Converts ====, ===, == into =
+    eq = re.sub(r'={2,}', '=', eq)
+
     # REMOVE WRAPPERS
 
     eq = eq.replace("\\[", "")
